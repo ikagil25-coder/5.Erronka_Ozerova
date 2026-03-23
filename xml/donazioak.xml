@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<donazioak>
+    <donazioa>
+        <enpresa_emailea>
+            <ifk>A12345678</ifk>
+            <izena>Esnekiak Araba S.L.</izena>
+        </enpresa_emailea>
+        <data>2026-03-20</data>
+        <elikagaiak>
+            <elikagaia>
+                <mota>iragankorra</mota>
+                <erreferentzia>IR10293</erreferentzia>
+                <produktu_izena>Behi esne osoa</produktu_izena>
+                <kopurua>500</kopurua>
+                <ekoizlea>Lacteos del Norte</ekoizlea>
+                <iraungitze_data>2026-04-15</iraungitze_data>
+                <hoztuta_mantendu>BAI</hoztuta_mantendu>
+            </elikagaia>
+        </elikagaiak>
+    </donazioa>
+
+    <donazioa>
+        <enpresa_emailea>
+            <ifk>B98765432</ifk>
+            <izena>Gure Laborea Taldea</izena>
+        </enpresa_emailea>
+        <data>2026-03-21</data>
+        <elikagaiak>
+            <elikagaia>
+                <mota>ez iragankorra</mota>
+                <erreferentzia>EZ55443</erreferentzia>
+                <produktu_izena>Arroz borobila 1kg</produktu_izena>
+                <kopurua>1200</kopurua>
+                <ekoizlea>Arrozales de la Ribera</ekoizlea>
+                <kontserba>EZ</kontserba>
+            </elikagaia>
+        </elikagaiak>
+    </donazioa>
+
+    <donazioa>
+        <enpresa_emailea>
+            <ifk>C45678901</ifk>
+            <izena>Baratze Berria Koop.</izena>
+        </enpresa_emailea>
+        <data>2026-03-22</data>
+        <elikagaiak>
+            <elikagaia>
+                <mota>erdi iragankorra</mota>
+                <erreferentzia>EI88127</erreferentzia>
+                <produktu_izena>Patata poltsa 5kg</produktu_izena>
+                <kopurua>300</kopurua>
+                <ekoizlea>Nekazari Elkartea</ekoizlea>
+            </elikagaia>
+        </elikagaiak>
+    </donazioa>
+</donazioak>

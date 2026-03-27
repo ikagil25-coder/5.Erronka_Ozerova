@@ -1,10 +1,10 @@
 public class biltegia {
-   private int id;
-   private String kodea;
+   private int produktu_id;
+   private String biltegi_kodea;
    private int pasiloZbk;
    private String kokapenKodea;
    
-   public elikagaiakGorde(Iragankorrak, erdiIragankorrak, ezIragankorrak){}//enum erabiliz
+   public elikagaiakGorde(){}//enum erabiliz
 
    public produktuakGehitu(){}
 

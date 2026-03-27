@@ -1,20 +1,19 @@
-public class biltegia {
-   private int produktu_id;
+public class Biltegia {
    private String biltegi_kodea;
-   private int pasiloZbk;
-   private String kokapenKodea;
+   private String izena;
+   private String kokapena;
    
-   public elikagaiakGorde(){}//enum erabiliz
+   public void elikagaiakGorde(){}//enum erabiliz
 
-   public produktuakGehitu(){}
+   public void produktuakGehitu(){}
 
-   public produktuBatGehitu(){}
+   public void produktuBatGehitu(){}
 
-   public produtuakAldatu(){}//Identifikatzailearen arabera
+   public void produtuakAldatu(){}//Identifikatzailearen arabera
    
-   public produktuakEzabatu(){}//Identifikatzailearen arabera
+   public void produktuakEzabatu(){}//Identifikatzailearen arabera
     
-   public produktuakBistaratu(){}
+   public void produktuakBistaratu(){}
 
 }
 

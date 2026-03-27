@@ -1,18 +1,8 @@
 public class Iragankorra extends ProduktuenBerezitasunak {
-    private String iraungitzeData;
-    private boolean hozteaBeharrezkoa;
 
-    public Iragankorra(int id, String erreferentzia, String izena, String enpresa, String iraungitzeData, boolean hozteaBeharrezkoa) {
-        super(id, erreferentzia, izena, enpresa);
-        this.iraungitzeData = iraungitzeData;
-        this.hozteaBeharrezkoa = hozteaBeharrezkoa;
+    public Iragankorra(int produktu_id, String erreferentzia, String izena, String fabrikatzailea, String iraungitze_Data, boolean hozteaBeharrezkoa) {
+        super(produktu_id, erreferentzia, izena, fabrikatzailea, iraungitze_Data, hozteaBeharrezkoa);
     }
-
-    // Getterrak
-    public String getIraungitzeData() { return iraungitzeData; }
-    public boolean isHozteaBeharrezkoa() { return hozteaBeharrezkoa; }
-
-    // Setterrak
-    public void setIraungitzeData(String iraungitzeData) { this.iraungitzeData = iraungitzeData; }
-    public void setHozteaBeharrezkoa(boolean hozteaBeharrezkoa) { this.hozteaBeharrezkoa = hozteaBeharrezkoa; }
+    
+    
 }

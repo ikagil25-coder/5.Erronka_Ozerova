@@ -1,48 +1,30 @@
-public class ProduktuenBerezitasunak {
-    protected int id;
-    protected String erreferentzia;
-    protected String izena;
-    protected String enpresa;
+public class ProduktuenBerezitasunak extends Produktuak{
+    private String iraungitzeData;
+    private boolean hozteaBeharrezkoa;
 
-    public ProduktuenBerezitasunak(int id, String erreferentzia, String izena, String enpresa) {
-        this.id = id;
-        this.erreferentzia = erreferentzia;
-        this.izena = izena;
-        this.enpresa = enpresa;
+    public ProduktuenBerezitasunak(int id, String erreferentzia, String izena, String enpresa, String iraungitze_Data, boolean hozteaBeharrezkoa2) {
+       this.iraungitzeData = iraungitzeData;
+       this.hozteaBeharrezkoa = hozteaBeharrezkoa;
     }
 
-    // Getterrak
-    public int getId() {
-        return id;
+    public ProduktuenBerezitasunak(int produktu_id, String erreferentzia, String izena, String fabrikatzailea,
+            boolean kontserba) {
     }
 
-    public String getErreferentzia() {
-        return erreferentzia;
+    public String getIraungitzeData() {
+        return iraungitzeData;
     }
 
-    public String getIzena() {
-        return izena;
+    public void setIraungitzeData(String iraungitzeData) {
+        this.iraungitzeData = iraungitzeData;
     }
 
-    public String getEnpresa() {
-        return enpresa;
+    public boolean isHozteaBeharrezkoa() {
+        return hozteaBeharrezkoa;
     }
 
-    // Setterrak
-    public void setId(int id) {
-        this.id = id;
+    public void setHozteaBeharrezkoa(boolean hozteaBeharrezkoa) {
+        this.hozteaBeharrezkoa = hozteaBeharrezkoa;
     }
-
-    public void setErreferentzia(String erreferentzia) {
-        this.erreferentzia = erreferentzia;
-    }
-
-    public void setIzena(String izena) {
-        this.izena = izena;
-    }
-
-    public void setEnpresa(String enpresa) {
-        this.enpresa = enpresa;
-    }
-
 }
+   

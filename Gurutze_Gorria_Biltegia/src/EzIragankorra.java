@@ -1,8 +1,8 @@
 public class EzIragankorra extends ProduktuenBerezitasunak {
     private boolean kontserba;
 
-    public EzIragankorra(int id, String erreferentzia, String izena, String enpresa, boolean kontserba) {
-        super(id, erreferentzia, izena, enpresa);
+    public EzIragankorra(int produktu_id, String erreferentzia, String izena, String fabrikatzailea, boolean kontserba) {
+        super(produktu_id, erreferentzia, izena, fabrikatzailea, kontserba);
         this.kontserba = kontserba;
     }
 

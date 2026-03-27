@@ -2,18 +2,24 @@ public class Biltegia {
    private String biltegi_kodea;
    private String izena;
    private String kokapena;
-   
-   public void elikagaiakGorde(){}//enum erabiliz
 
-   public void produktuakGehitu(){}
+   public void elikagaiakGorde() {
+   }// enum erabiliz
 
-   public void produktuBatGehitu(){}
+   public void produktuakGehitu() {
+   }
 
-   public void produtuakAldatu(){}//Identifikatzailearen arabera
-   
-   public void produktuakEzabatu(){}//Identifikatzailearen arabera
-    
-   public void produktuakBistaratu(){}
+   public void produktuBatGehitu() {
+   }
+
+   public void produtuakAldatu() {
+   }// Identifikatzailearen arabera
+
+   public void produktuakEzabatu() {
+   }// Identifikatzailearen arabera
+
+   public void produktuakBistaratu() {
+   }
 
    public String getBiltegi_kodea() {
       return biltegi_kodea;
@@ -40,4 +46,3 @@ public class Biltegia {
    }
 
 }
-

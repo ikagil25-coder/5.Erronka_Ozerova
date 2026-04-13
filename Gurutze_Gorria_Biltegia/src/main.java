@@ -1,19 +1,62 @@
+import java.util.Scanner;
+import java.util.ArrayList;
+
 public class main {
     public static void main(String[] args) {
-
-        System.out.println("Ongi etorri Gurutze Gorria Biltegiaren kudeaketa sistemara!");
-        System.out.println("Aukeratu erabiltzaile bat: 1. Admin 2. Kudeatzailea 3. Stock Kudeatzailea");
-
-        String usuario = "admin";
+        Scanner sc = new Scanner(System.in);
         
-        if(usuario.equals("admin")){
-            System.out.println("Ongi etorri, admin!");
+        // 1. Datu basetik informazioa kargatu
+        // kargatuInformazioa(); 
 
-        }else if(usuario.equals("kudeatzailea")){
-            System.out.println("Ongi etorri, kudeatzailea!");
+        // 2. Hasierako datuak sortu
+        hasieratudatuak();
 
-        }else if(usuario.equals("stockKudeatzailea")){
-            System.out.println("Ongi etorri, stock kudeatzailea!");
+        System.out.println("==========================================");
+        System.out.println("GURUTZE GORRIA - Biltegi Kudeaketa");
+        System.out.println("==========================================");
+        
+        System.out.println("Sartu zure erabiltzaile profila:");
+        System.out.println("1. Admin");
+        System.out.println("2. Kudeatzailea");
+        System.out.println("3. Stock kudeatzailea");
+        System.out.print("Aukera: ");
+        
+        int profilAukera = sc.nextInt();
+        
+        switch (profilAukera) {
+            case 1:
+                erakutsiAdminMenua();
+                break;
+            case 2:
+                erakutsiSarreraIrteeraMenua();
+                break;
+            case 3:
+                erakutsiStockMenua();
+                break;
+            default:
+                System.out.println("Aukera okerra. Agur!");
+                break;
         }
+        
+        sc.close();
+    }
+
+    private static void hasieratudatuak() {
+        System.out.println("Sistemaren hasieratzea: 4 produktu gehitzen datu-basera...");
+        // Deitu produktuakGehitu(Biltegia)
+    }
+
+
+
+    private static void erakutsiAdminMenua() {
+        System.out.println("\n--- ADMINISTRATZAILE MENUA ---");
+    }
+
+    private static void erakutsiSarreraIrteeraMenua() {
+        System.out.println("\n---  KUDEATZAILEA ---");
+    }
+
+    private static void erakutsiStockMenua() {
+        System.out.println("\n--- STOCK KUDEATZAILEA ---");
     }
 }

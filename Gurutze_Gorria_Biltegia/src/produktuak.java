@@ -1,4 +1,4 @@
-public class Produktuak {
+public class produktuak {
     private int produktu_id;
     private String erreferentzia;
     private String izena;

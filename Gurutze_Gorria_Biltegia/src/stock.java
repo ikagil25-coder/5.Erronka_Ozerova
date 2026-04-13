@@ -1,4 +1,4 @@
-public class Stock {
+public class stock {
     
     public void stockGehien(){}//Biltegian stock gehien duen prdouktua bueltatu
     

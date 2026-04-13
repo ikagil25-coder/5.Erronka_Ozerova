@@ -1,4 +1,4 @@
-public class Biltegia {
+public class biltegia {
    private String biltegi_kodea;
    private String izena;
    private String kokapena;

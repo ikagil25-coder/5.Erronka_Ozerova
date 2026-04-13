@@ -1,4 +1,4 @@
-public class ProduktuenBerezitasunak extends Produktuak{
+public class ProduktuenBerezitasunak extends produktuak{
     private String iraungitzeData;
     private boolean hozteaBeharrezkoa;
 

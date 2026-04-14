@@ -9,7 +9,7 @@ public class main {
         // kargatuInformazioa(); 
 
         // 2. Hasierako datuak sortu
-        hasieratudatuak();
+        hasieratuDatuak();
 
         System.out.println("==========================================");
         System.out.println("GURUTZE GORRIA - Biltegi Kudeaketa");
@@ -41,7 +41,7 @@ public class main {
         sc.close();
     }
 
-    private static void hasieratudatuak() {
+    private static void hasieratuDatuak() {
         System.out.println("Sistemaren hasieratzea: 4 produktu gehitzen datu-basera...");
         // Deitu produktuakGehitu(Biltegia)
     }

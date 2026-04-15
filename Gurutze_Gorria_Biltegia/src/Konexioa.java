@@ -4,13 +4,12 @@ import java.sql.SQLException;
 
 public class Konexioa {
 
-    private static final String URL = "jdbc:mysql://localhost:3306/GG_Biltegia";
+private static final String URL = "jdbc:mysql://localhost:3306/GG_Biltegia";
     private static final String USER = "root";
     private static final String PASSWORD = "gabrielito10";
 
-    public Connection konektatu() throws SQLException {
+    public static Connection konektatu() throws SQLException {
         Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
-        System.out.println("Konexioa ondo burutu da!");
         return conn;
     }
 
@@ -19,11 +18,11 @@ public class Konexioa {
         try {
             Connection conn = db.konektatu();
             if (conn != null) {
-                System.out.println("aaaa");
+                System.out.println("Konexioa ondo burutu da!");
                 conn.close();
             }
         } catch (SQLException e) {
-            System.err.println("Mal:");
+            System.err.println("Errorea datu-basearekin:");
             e.printStackTrace();
         }
     }

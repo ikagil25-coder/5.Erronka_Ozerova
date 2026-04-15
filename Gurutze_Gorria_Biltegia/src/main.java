@@ -1,67 +1,48 @@
 import java.util.Scanner;
-import java.util.ArrayList;
 
 public class main {
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
+        Login loginProzesua = new Login();
+        String rol = loginProzesua.logina();
+
+        if (rol == null) {
+            System.out.println("Erabiltzaile edo pasahitza okerra.");
+            return;
+        }
+
+        System.out.println("\nOngi etorri! Zure rola: " + rol.toUpperCase());
         
-        // 1. Datu basetik informazioa kargatu
-        // kargatuInformazioa(); 
-
-        // 2. Hasierako datuak sortu
-    //hasieratuDatuak();
-
-
-
-
-    if()
-        System.out.println("==========================================");
-        System.out.println("GURUTZE GORRIA - Biltegi Kudeaketa");
-        System.out.println("==========================================");
-        
-        System.out.println("Sartu zure erabiltzaile profila:");
-        System.out.println("1. Admin");
-
-
-
-        System.out.println("2. Kudeatzailea");
-        System.out.println("3. Stock kudeatzailea");
-        System.out.print("Aukera: ");
-        
-        int profilAukera = sc.nextInt();
-        
-        switch (profilAukera) {
-            case 1:
+        switch (rol.toLowerCase()) {
+            case "admin":
                 erakutsiAdminMenua();
                 break;
-            case 2:
+            case "kudeatzailea":
                 erakutsiSarreraIrteeraMenua();
                 break;
-            case 3:
+            case "stock":
                 erakutsiStockMenua();
                 break;
             default:
-                System.out.println("Aukera okerra. Agur!");
+                System.out.println("Rola ez da zuzena.");
                 break;
         }
-        
-        sc.close();
-    }
-
-    private static void hasieratuDatuak() {
-        System.out.println("Sistemaren hasieratzea: 4 produktu gehitzen datu-basera...");
-        // Deitu produktuakGehitu(Biltegia)
     }
 
     private static void erakutsiAdminMenua() {
-        System.out.println("\n--- ADMINISTRATZAILE MENUA ---");
+        System.out.println("==========================================");
+        System.out.println("MENUA: ADMINISTRATZAILEA");
+        System.out.println("==========================================");
     }
 
     private static void erakutsiSarreraIrteeraMenua() {
-        System.out.println("\n---  KUDEATZAILEA ---");
+        System.out.println("==========================================");
+        System.out.println("MENUA: KUDEATZAILEA (Sarrerak/Irteerak)");
+        System.out.println("==========================================");
     }
 
     private static void erakutsiStockMenua() {
-        System.out.println("\n--- STOCK KUDEATZAILEA ---");
+        System.out.println("==========================================");
+        System.out.println("MENUA: STOCK KUDEAKETA");
+        System.out.println("==========================================");
     }
 }

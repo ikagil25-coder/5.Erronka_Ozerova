@@ -5,38 +5,29 @@ import java.sql.Types;
 import java.util.Scanner;
 
 public class Login {
+public String logina() {
+    Scanner sc = new Scanner(System.in);
+    System.out.println("Kaixo, sartu erabiltzailea:");
+    String erabiltzailea = sc.nextLine();
+    System.out.println("Kaixo, sartu pasahitza:");
+    String pasahitza = sc.nextLine();
 
-    public void Login() {
+    String sql = "{call erabiltzaile_logina(?, ?, ?)}";
+    String rolObtenido = null;
 
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Kaixo, sartu erabiltzailea mesedez:");
-        String erabiltzailea = sc.nextLine();
-        System.out.println("Kaixo, sartu pasahitza mesedez:");
-        String pasahitza = sc.nextLine();
-        sc.close();
+    try (Connection conn = Konexioa.konektatu(); 
+         CallableStatement cstmt = conn.prepareCall(sql)) {
 
-        String sql = "{call erabiltzaile_logina(?, ?, ?)}";
+        cstmt.setString(1, erabiltzailea);
+        cstmt.setString(2, pasahitza);
+        cstmt.registerOutParameter(3, java.sql.Types.VARCHAR);
+        
+        cstmt.execute();
+        rolObtenido = cstmt.getString(3);
 
-        try (
-                Connection conn = Konexioa.konektatu();
-                CallableStatement cstmt = conn.prepareCall(sql)) {
-
-            cstmt.setString(1, erabiltzailea);
-            cstmt.setString(2, pasahitza);
-            cstmt.registerOutParameter(3, Types.VARCHAR);
-
-            cstmt.execute();
-            String rolObtenido = cstmt.getString(3);
-
-            if (rolObtenido != null) {
-                System.out.println("Acceso exitoso. Rol: " + rolObtenido);
-            } else {
-                System.out.println("Credenciales incorrectas.");
-            }
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
+    } catch (SQLException e) {
+        e.printStackTrace();
     }
+    return rolObtenido; 
+}
 }

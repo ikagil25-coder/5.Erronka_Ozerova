@@ -9,14 +9,21 @@ public class main {
         // kargatuInformazioa(); 
 
         // 2. Hasierako datuak sortu
-        hasieratuDatuak();
+    //hasieratuDatuak();
 
+
+
+
+    if()
         System.out.println("==========================================");
         System.out.println("GURUTZE GORRIA - Biltegi Kudeaketa");
         System.out.println("==========================================");
         
         System.out.println("Sartu zure erabiltzaile profila:");
         System.out.println("1. Admin");
+
+
+
         System.out.println("2. Kudeatzailea");
         System.out.println("3. Stock kudeatzailea");
         System.out.print("Aukera: ");
@@ -45,8 +52,6 @@ public class main {
         System.out.println("Sistemaren hasieratzea: 4 produktu gehitzen datu-basera...");
         // Deitu produktuakGehitu(Biltegia)
     }
-
-
 
     private static void erakutsiAdminMenua() {
         System.out.println("\n--- ADMINISTRATZAILE MENUA ---");

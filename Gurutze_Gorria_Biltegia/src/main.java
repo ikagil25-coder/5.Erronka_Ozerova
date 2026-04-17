@@ -14,35 +14,17 @@ public class main {
         
         switch (rol.toLowerCase()) {
             case "admin":
-                erakutsiAdminMenua();
+                Menuak.erakutsiAdminMenua();
                 break;
             case "kudeatzailea":
-                erakutsiSarreraIrteeraMenua();
+                Menuak.erakutsiSarreraIrteeraMenua();
                 break;
             case "stock":
-                erakutsiStockMenua();
+                Menuak.erakutsiStockMenua();
                 break;
             default:
                 System.out.println("Rola ez da zuzena.");
                 break;
         }
-    }
-
-    private static void erakutsiAdminMenua() {
-        System.out.println("==========================================");
-        System.out.println("MENUA: ADMINISTRATZAILEA");
-        System.out.println("==========================================");
-    }
-
-    private static void erakutsiSarreraIrteeraMenua() {
-        System.out.println("==========================================");
-        System.out.println("MENUA: KUDEATZAILEA (Sarrerak/Irteerak)");
-        System.out.println("==========================================");
-    }
-
-    private static void erakutsiStockMenua() {
-        System.out.println("==========================================");
-        System.out.println("MENUA: STOCK KUDEAKETA");
-        System.out.println("==========================================");
     }
 }

@@ -11,7 +11,7 @@ public class main {
         }
 
         System.out.println("\nOngi etorri! Zure rola: " + rol.toUpperCase());
-        
+
         switch (rol.toLowerCase()) {
             case "admin":
                 Menuak.erakutsiAdminMenua();

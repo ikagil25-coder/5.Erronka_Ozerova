@@ -9,17 +9,16 @@ public class biltegia {
    private String kokapena;
 
    public void elikagaiakGorde() {
-   }// enum erabiliz
+   }
 
    public void produktuaGehitu(produktuak p) {
-      // Especificamos las columnas para evitar errores de conteo y asegurar el orden
       String sql = "INSERT INTO Produktuak (id_produktuak, id_biltegia, erreferentzia, izena, fabrikatzailea, kokapen_id, mota) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
       try (Connection conn = Konexioa.konektatu();
             PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
          pstmt.setInt(1, p.getProduktu_id());
-         pstmt.setString(2, "BIL-001"); // Usamos el código de almacén por defecto
+         pstmt.setString(2, "BIL-001");
          pstmt.setString(3, p.getErreferentzia());
          pstmt.setString(4, p.getIzena());
          pstmt.setString(5, p.getFabrikatzailea());
@@ -40,10 +39,10 @@ public class biltegia {
    }
 
    public void produtuakAldatu() {
-   }// Identifikatzailearen arabera
+   }
 
    public void produktuakEzabatu() {
-   }// Identifikatzailearen arabera
+   }
 
    public void produktuakBistaratu() {
    }

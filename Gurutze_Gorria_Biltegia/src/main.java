@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class main {
+public class Main {
     public static void main(String[] args) {
         Login loginProzesua = new Login();
         String rol = loginProzesua.logina();

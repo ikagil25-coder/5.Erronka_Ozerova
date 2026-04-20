@@ -1,6 +1,6 @@
 import java.sql.*;
 
-public class prueba {
+public class Prueba {
     public void ikusi() {
         Konexioa db = new Konexioa();
 
@@ -17,7 +17,7 @@ public class prueba {
     }
 
     public static void main(String[] args) {
-        prueba p = new prueba();
+        Prueba p = new Prueba();
         p.ikusi();
     }
 }

@@ -1,5 +1,5 @@
 
-public class produktuak {
+public class Produktuak {
 
     private int produktu_id;
     private String erreferentzia;

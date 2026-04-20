@@ -47,6 +47,7 @@ public class Menuak {
             System.out.println("\n---  KUDEATZAILEA ---");
             System.out.println("1. Sarrera berria sortu");
             System.out.println("2. Irteera berria sortu");
+
             System.out.println("0. Irten");
             System.out.print("Aukeratu zenbaki bat: ");
 
@@ -78,56 +79,83 @@ public class Menuak {
             System.out.println("\n--- STOCK KUDEATZAILEA ---");
             System.out.println("1. Produktua gehitu");
             System.out.println("2. Produktua aldatu");
-            System.out.println("3. Produktuak bistaratu");
+            System.out.println("3. Produktua ezabatu");
+            System.out.println("4. Produktuak bistaratu");
             System.out.println("0. Irten");
             System.out.print("Aukeratu zenbaki bat: ");
-            biltegia nireBiltegia = new biltegia();
+            Biltegia nireBiltegia = new Biltegia();
             String aukera = sc.nextLine();
             switch (aukera) {
 
                 case "1":
-                    produktuak p = new produktuak();
-                    
-                    System.out.println("Idatzi produktuaren izena:");
-                    String izena = sc.nextLine();
-                    p.setIzena(izena);
-                    
-                    System.out.println("Idatzi produktuaren ID-a (Zenbakia bakarrik):");
-                    int id = Integer.parseInt(sc.nextLine());
-                    p.setProduktu_id(id);
+                    System.out.println("Zenbat produktu gehitu nahi dituzu?");
+                    int kopurua = Integer.parseInt(sc.nextLine());
 
-                    System.out.println("Idatzi produktuaren erreferentzia");
-                    String erreferentzia=sc.nextLine();
-                    p.setErreferentzia(erreferentzia);
+                    for (int i = 0; i < kopurua; i++) {
+                        System.out.println("\n--- " + (i + 1) + ". produktua sartzen ---");
+                        Produktuak p = new Produktuak();
 
-                    System.out.println("Idatzi produktu mota (1-Iragankorra, 2-Erdi, 3-Ez):");
-                    int mota = Integer.parseInt(sc.nextLine());
-                    p.setMota(mota);
+                        System.out.println("Idatzi produktuaren izena:");
+                        p.setIzena(sc.nextLine());
 
-                    System.out.println("Idatzi produktuaren fabrikatzailea");
-                    String fabrikatzailea= sc.nextLine();
-                    p.setFabrikatzailea(fabrikatzailea);
+                        System.out.println("Idatzi produktuaren ID-a (Zenbakia bakarrik):");
+                        p.setProduktu_id(Integer.parseInt(sc.nextLine()));
 
-                    System.out.println("Idatzi produktuaren pasillo zenbakia");
-                    int pasilloznb = Integer.parseInt(sc.nextLine());
-                    p.setPasilo_zbk(pasilloznb);
+                        System.out.println("Idatzi produktuaren erreferentzia (Adib: IR12345, ER12345, EZ12345):");
+                        p.setErreferentzia(sc.nextLine().toUpperCase());
+                        System.out.println("Idatzi produktu mota (1-Iragankorra, 2-Erdi, 3-Ez):");
+                        p.setMota(Integer.parseInt(sc.nextLine()));
 
-                    System.out.println("Idatzi produktuaren kokapen ID-a (Zenbakia):");
-                    int kokapen_id = Integer.parseInt(sc.nextLine());
-                    p.setKokapen_id(kokapen_id);
+                        System.out.println("Idatzi produktuaren fabrikatzailea");
+                        p.setFabrikatzailea(sc.nextLine());
 
+                        System.out.println("Idatzi produktuaren pasillo zenbakia");
+                        p.setPasilo_zbk(Integer.parseInt(sc.nextLine()));
 
+                        System.out.println("Idatzi produktuaren kokapen ID-a (Zenbakia):");
+                        p.setKokapen_id(Integer.parseInt(sc.nextLine()));
 
-                    
-                    
-                    nireBiltegia.produktuaGehitu(p);
+                        nireBiltegia.produktuaGehitu(p);
+                    }
+                    System.out.println("\nProzesua amaitu da. Produktu guztiak datu-basean sartu dira.");
                     break;
-                    
+
                 case "2":
-                    // nireBiltegia.produktuaAldatu(...);
+                    Produktuak pAldatu = new Produktuak();
+
+                    System.out.println("Idatzi aldatu nahi duzun produktuaren ID-a:");
+                    int aldatuId = Integer.parseInt(sc.nextLine());
+                    pAldatu.setProduktu_id(aldatuId);
+
+                    System.out.println("Idatzi izen berria:");
+                    String izenBerria = sc.nextLine();
+                    pAldatu.setIzena(izenBerria);
+
+                    System.out.println("Idatzi erreferentzia berria (Adib: IR12345, ER12345, EZ12345):");
+                    String errBerria = sc.nextLine();
+                    pAldatu.setErreferentzia(errBerria);
+
+                    System.out.println("Idatzi fabrikatzaile berria:");
+                    String fabBerria = sc.nextLine();
+                    pAldatu.setFabrikatzailea(fabBerria);
+
+                    System.out.println("Idatzi kokapen ID berria:");
+                    int kokBerria = Integer.parseInt(sc.nextLine());
+                    pAldatu.setKokapen_id(kokBerria);
+
+                    System.out.println("Idatzi mota berria (1-Iragankorra, 2-Erdi, 3-Ez):");
+                    int motaBerria = Integer.parseInt(sc.nextLine());
+                    pAldatu.setMota(motaBerria);
+
+                    nireBiltegia.produktuaAldatu(pAldatu);
+                    break;
+                case "4":
+                    nireBiltegia.produktuakBistaratu();
                     break;
                 case "3":
-                    // nireBiltegia.produktuakBistaratu();
+                    System.out.println("Idatzi ezabatu nahi duzun produktuaren ID-a:");
+                    int ezabatuId = Integer.parseInt(sc.nextLine());
+                    nireBiltegia.produktuaEzabatu(ezabatuId);
                     break;
                 case "0":
                     irten = true;

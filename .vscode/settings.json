@@ -1,0 +1,5 @@
+{
+    "java.project.referencedLibraries": [
+        "Gurutze_Gorria_Biltegia/lib/**/*.jar"
+    ]
+}

@@ -86,7 +86,7 @@ public class Menuak {
             System.out.println("7. Donaziorik ez duten produktuak bueltatu ");
             System.out.println("0. Irten");
             System.out.print("Aukeratu zenbaki bat: ");
-            Biltegia nireBiltegia = new Biltegia();
+            Stock nireStock = new Stock();
             String aukera = sc.nextLine();
             switch (aukera) {
 
@@ -118,7 +118,7 @@ public class Menuak {
                         System.out.println("Idatzi produktuaren kokapen ID-a (Zenbakia):");
                         p.setKokapen_id(Integer.parseInt(sc.nextLine()));
 
-                        nireBiltegia.produktuaGehitu(p);
+                        nireStock.produktuaGehitu(p);
                     }
                     System.out.println("\nProzesua amaitu da. Produktu guztiak datu-basean sartu dira.");
                     break;
@@ -150,25 +150,25 @@ public class Menuak {
                     int motaBerria = Integer.parseInt(sc.nextLine());
                     pAldatu.setMota(motaBerria);
 
-                    nireBiltegia.produktuaAldatu(pAldatu);
+                    nireStock.produktuaAldatu(pAldatu);
                     break;
 
                 case "3":
                     System.out.println("Idatzi ezabatu nahi duzun produktuaren ID-a:");
                     int ezabatuId = Integer.parseInt(sc.nextLine());
-                    nireBiltegia.produktuaEzabatu(ezabatuId);
+                    nireStock.produktuaEzabatu(ezabatuId);
                     break;
                 case "4":
-                    nireBiltegia.produktuakBistaratu();
+                    nireStock.produktuakBistaratu();
                     break;
                 case "5":
-                    nireBiltegia.stockGehienDuenProduktua();
+                    nireStock.stockGehienDuenProduktua();
                     break;
                 case "6":
-                    nireBiltegia.agortutakoProduktuak();
+                    nireStock.agortutakoProduktuak();
                     break;
                 case "7":
-                    nireBiltegia.donaziorikEzDutenProduktuak();
+                    nireStock.donaziorikEzDutenProduktuak();
                     break;
                 case "0":
                     irten = true;

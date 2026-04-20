@@ -9,6 +9,7 @@ public class Produktuak {
     private int kokapen_id;
     private int mota;
 
+    // Getters eta Setters
     public int getProduktu_id() {
         return produktu_id;
     }

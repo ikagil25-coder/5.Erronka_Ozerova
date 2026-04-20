@@ -1,5 +1,6 @@
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class Biltegia {
@@ -102,18 +103,77 @@ public class Biltegia {
    }
 
    public void stockGehienDuenProduktua() {
-            Stri ng sql = "SELECT * FROM PRODUKTUAK ORDER BY stock DESC LI
+      String sql = "SELECT p.izena, s.kantitate_totala FROM Produktuak p JOIN Stock s ON p.id_produktuak = s.id_produktuak ORDER BY s.kantitate_totala DESC LIMIT 1";
 
-   
+      try (Connection conn = Konexioa.konektatu();
+            PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+         try (ResultSet rs = pstmt.executeQuery()) {
+            if (rs.next()) {
+               String izena = rs.getString("izena");
+               int kantitatea = rs.getInt("kantitate_totala");
+               System.out.println("Emaitza: " + izena + " (" + kantitatea + " unitate)");
+            } else {
+               System.out.println("Ez da produkturik aurkitu.");
+            }
+         }
+
+      } catch (SQLException e) {
+         System.out.println("Errorea stock gehien duen produktua lortzean...");
+         e.printStackTrace();
+      }
+   }
+
    public void agortutakoProduktuak() {
-      return;
+      String sql = "SELECT p.id_produktuak, p.izena, s.kantitate_totala FROM Produktuak p JOIN Stock s ON p.id_produktuak = s.id_produktuak WHERE s.kantitate_totala = 0";
+
+      try (Connection conn = Konexioa.konektatu();
+            PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+         try (ResultSet rs = pstmt.executeQuery()) {
+            System.out.println("--- Agortutako Produktuak ---");
+            boolean badago = false;
+            while (rs.next()) {
+               badago = true;
+               int id = rs.getInt("id_produktuak");
+               String izena = rs.getString("izena");
+               System.out.println("ID: " + id + " | Izena: " + izena + " | Stock: 0");
+            }
+            if (!badago) System.out.println("Ez dago agortutako produkturik.");
+         }
+
+      } catch (SQLException e) {
+         System.out.println("Errorea stock ez duten produktuak lortzean...");
+         e.printStackTrace();
+      }
    }
 
    public void donaziorikEzDutenProduktuak() {
-      return;
-   }
-   p
+      String sql = "SELECT p.id_produktuak, p.izena, p.erreferentzia FROM Produktuak p LEFT JOIN Donazioak d ON p.id_produktuak = d.id_produktuak WHERE d.id_donazioa IS NULL";
 
+      try (Connection conn = Konexioa.konektatu();
+            PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+         try (ResultSet rs = pstmt.executeQuery()) {
+            System.out.println("--- Donaziorik ez duten produktuak ---");
+            boolean badago = false;
+            while (rs.next()) {
+               badago = true;
+               int id = rs.getInt("id_produktuak");
+               String izena = rs.getString("izena");
+               String ref = rs.getString("erreferentzia");
+               System.out.println("ID: " + id + " | Izena: " + izena + " | Ref: " + ref);
+            }
+            if (!badago) System.out.println("Produktu guztiek dituzte donazioak.");
+         }
+
+      } catch (SQLException e) {
+         System.out.println("Errorea donaziorik ez duten produktuak lortzean...");
+         e.printStackTrace();
+      }
+   }
+
+   public String getBiltegi_kodea() {
       return biltegi_kodea;
    }
 

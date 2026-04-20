@@ -93,15 +93,27 @@ public class Biltegia {
 
          pstmt.executeUpdate();
 
-         System.out.println("Produktua ondo gorde da datu basean!");
+         System.out.println("Hauek dira datu basean dauden produktuak!");
 
       } catch (SQLException e) {
-         System.out.println("Errorea produktua gordetzean datu-basean...");
+         System.out.println("Errorea...");
          e.printStackTrace();
       }
    }
 
-   public String getBiltegi_kodea() {
+   public void stockGehienDuenProduktua() {
+            Stri ng sql = "SELECT * FROM PRODUKTUAK ORDER BY stock DESC LI
+
+   
+   public void agortutakoProduktuak() {
+      return;
+   }
+
+   public void donaziorikEzDutenProduktuak() {
+      return;
+   }
+   p
+
       return biltegi_kodea;
    }
 

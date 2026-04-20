@@ -81,6 +81,9 @@ public class Menuak {
             System.out.println("2. Produktua aldatu");
             System.out.println("3. Produktua ezabatu");
             System.out.println("4. Produktuak bistaratu");
+            System.out.println("5. Stock gehien duen produktua bueltatu");
+            System.out.println("6. Agortutako produktuak bueltatu");
+            System.out.println("7. Donaziorik ez duten produktuak bueltatu ");
             System.out.println("0. Irten");
             System.out.print("Aukeratu zenbaki bat: ");
             Biltegia nireBiltegia = new Biltegia();
@@ -149,13 +152,23 @@ public class Menuak {
 
                     nireBiltegia.produktuaAldatu(pAldatu);
                     break;
-                case "4":
-                    nireBiltegia.produktuakBistaratu();
-                    break;
+
                 case "3":
                     System.out.println("Idatzi ezabatu nahi duzun produktuaren ID-a:");
                     int ezabatuId = Integer.parseInt(sc.nextLine());
                     nireBiltegia.produktuaEzabatu(ezabatuId);
+                    break;
+                case "4":
+                    nireBiltegia.produktuakBistaratu();
+                    break;
+                case "5":
+                    nireBiltegia.stockGehienDuenProduktua();
+                    break;
+                case "6":
+                    nireBiltegia.agortutakoProduktuak();
+                    break;
+                case "7":
+                    nireBiltegia.donaziorikEzDutenProduktuak();
                     break;
                 case "0":
                     irten = true;

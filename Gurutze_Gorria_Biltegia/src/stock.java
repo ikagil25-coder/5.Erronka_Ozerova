@@ -88,7 +88,7 @@ public class Stock {
                 ResultSet rs = pstmt.executeQuery()) {
 
             System.out.println("--- Datu basean dauden produktuak ---");
-            while(rs.next()){
+            while (rs.next()) {
                 System.out.println("ID: " + rs.getInt("id_produktuak") + " | Izena: " + rs.getString("izena"));
             }
 

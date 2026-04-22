@@ -54,7 +54,6 @@ public class Stock {
                 }
             }
 
-          
             System.out.println("Produktua ondo gorde da datu basean!");
 
         } catch (SQLException e) {
@@ -91,24 +90,23 @@ public class Stock {
     }
 
     public void produktuaEzabatu(int ezabatuId) {
-        //String sql = "DELETE FROM PRODUKTUAK WHERE id_produktua=?";
-        String sql= "UPDATE STOCK SET kantitate_totala=0 WHERE id_stock=?";
+        String sql = "UPDATE Stock SET kantitate_totala = 0 WHERE id_produktuak = ?";
         
         try (Connection conn = Konexioa.konektatu();
-                PreparedStatement pstmt = conn.prepareStatement(sql)) {
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
             pstmt.setInt(1, ezabatuId);
 
             int ezabatuta = pstmt.executeUpdate();
 
             if (ezabatuta > 0) {
-                System.out.println("Produktua ondo ezabatu da!");
+                System.out.println("Produktuaren stock-a ondo ezabatu da (0-ra pasatu da)!");
             } else {
-                System.out.println("Ez da produkturik aurkitu ID horrekin.");
+                System.out.println("Ez da produkturik aurkitu ID horrekin Stock taulan.");
             }
 
         } catch (SQLException e) {
-            System.out.println("Errorea produktua ezabatzean datu-basean...");
+            System.out.println("Errorea produktuaren stocka ezabatzean datu-basean...");
             e.printStackTrace();
         }
     }

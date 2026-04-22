@@ -35,7 +35,7 @@ public class Menuak {
 
     public static void erakutsiSarreraIrteeraMenua() {
         Scanner sc = new Scanner(System.in);
-        SarrerakEtaIrteerak kudeaketa = new SarrerakEtaIrteerak(); // Zure klase berria
+        SarrerakEtaIrteerak kudeaketa = new SarrerakEtaIrteerak();
         boolean irten = false;
 
         while (!irten) {
@@ -121,8 +121,18 @@ public class Menuak {
                         System.out.println("Idatzi produktuaren ID-a (Zenbakia bakarrik):");
                         p.setProduktu_id(Integer.parseInt(sc.nextLine()));
 
-                        System.out.println("Idatzi produktuaren erreferentzia (Adib: IR12345, ER12345, EZ12345):");
-                        p.setErreferentzia(sc.nextLine().toUpperCase());
+                        try {
+                            System.out.println("Idatzi produktuaren erreferentzia (Adib: IR12345, ER12345, EZ12345):");
+                            String erreferentzia = sc.nextLine().toUpperCase();
+                            if (!erreferentzia.matches("^(IR|ER|EZ)\\d{5}$")) {
+                                throw new Exception("ERROREA: Formatu okerra!");
+                            }
+                            p.setErreferentzia(erreferentzia);
+                        } catch (Exception e) {
+                            System.out.println(e.getMessage());
+                            System.out.println("Produktuaren sorkuntza bertan behera utzi da. Saiatu berriro.");
+                            break;
+                        }
                        
 
                         System.out.println("Idatzi produktuaren fabrikatzailea");
@@ -201,9 +211,20 @@ public class Menuak {
                     String izenBerria = sc.nextLine();
                     pAldatu.setIzena(izenBerria);
 
-                    System.out.println("Idatzi erreferentzia berria (Adib: IR12345, ER12345, EZ12345):");
-                    String errBerria = sc.nextLine();
-                    pAldatu.setErreferentzia(errBerria);
+                   
+                    try {
+                        System.out.println("Idatzi erreferentzia berria (Adib: IR12345, ER12345, EZ12345):");
+                        String errBerria = sc.nextLine().toUpperCase();
+                        
+                        if (!errBerria.matches("^(IR|ER|EZ)\\d{5}$")) {
+                           throw new Exception("Erreferentziaren formatua ez da zuzena (IR-EZ-ER + 5 zenbaki)"); 
+                        }
+                        pAldatu.setErreferentzia(errBerria);
+                    } catch (Exception e) {
+                        System.out.println(e.getMessage());
+                        System.out.println("Aldaketa ez da egin, saiatu berriro");
+                        break;
+                    }
 
                     System.out.println("Idatzi fabrikatzaile berria:");
                     String fabBerria = sc.nextLine();
@@ -215,7 +236,43 @@ public class Menuak {
 
                     System.out.println("Idatzi mota berria (1-Iragankorra, 2-Erdi, 3-Ez):");
                     int motaBerria = Integer.parseInt(sc.nextLine());
-                    pAldatu.setMota(motaBerria);
+                    
+                    if (motaBerria == 1) {
+                        System.out.println("Idatzi iraugitze data (mm/dd/yyyy):");
+                        String iraungitzeData = sc.nextLine();
+                        System.out.println("Behar du hoztea?(true/false)");
+                        boolean hoztea = Boolean.parseBoolean(sc.nextLine());
+
+                        pAldatu = new Iragankorra(
+                            pAldatu.getProduktu_id(), pAldatu.getErreferentzia(), pAldatu.getIzena(), 
+                            pAldatu.getFabrikatzailea(), pAldatu.getPasilo_zbk(), pAldatu.getKokapen_id(), motaBerria,
+                            iraungitzeData, hoztea
+                        );
+                    } else if (motaBerria == 2) {
+                        System.out.println("Idatzi iraugitze data (mm/dd/yyyy):");
+                        String iraungitzeData = sc.nextLine();
+                        System.out.println("Behar du hoztea?(true/false)");
+                        boolean hoztea = Boolean.parseBoolean(sc.nextLine());
+                        System.out.println("Idatzi hezetasun maximoa:");
+                        double hezetasuna = Double.parseDouble(sc.nextLine());
+
+                        pAldatu = new ErdiIragankorra(
+                            pAldatu.getProduktu_id(), pAldatu.getErreferentzia(), pAldatu.getIzena(), 
+                            pAldatu.getFabrikatzailea(), pAldatu.getPasilo_zbk(), pAldatu.getKokapen_id(), motaBerria,
+                            iraungitzeData, hoztea, hezetasuna
+                        );
+                    } else if (motaBerria == 3) {
+                        System.out.println("Produktua kontserba bat da?(true/false)");
+                        boolean kontserba = Boolean.parseBoolean(sc.nextLine());
+
+                        pAldatu = new EzIragankorra(
+                            pAldatu.getProduktu_id(), pAldatu.getErreferentzia(), pAldatu.getIzena(), 
+                            pAldatu.getFabrikatzailea(), pAldatu.getPasilo_zbk(), pAldatu.getKokapen_id(), motaBerria,
+                            kontserba
+                        );
+                    } else {
+                        pAldatu.setMota(motaBerria);
+                    }
 
                     nireStock.produktuaAldatu(pAldatu);
                     break;

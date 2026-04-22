@@ -98,7 +98,7 @@ public class Stock {
         }
     }
 
-    // --- STOCK KONTSULTAK ---
+    //  STOCK KONTSULTAK 
 
     public void stockGehienDuenProduktua() {
         String sql = "SELECT p.izena, s.kantitate_totala FROM Produktuak p JOIN Stock s ON p.id_produktuak = s.id_produktuak ORDER BY s.kantitate_totala DESC LIMIT 1";

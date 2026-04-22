@@ -195,6 +195,7 @@ public class Menuak {
                     System.out.println("Sartu duzun zenbakia ez da zuzena, saiatu berriro.");
                     break;
             }
+            sc.close();
         }
     }
 }

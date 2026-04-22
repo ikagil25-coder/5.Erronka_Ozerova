@@ -91,7 +91,8 @@ public class Stock {
     }
 
     public void produktuaEzabatu(int ezabatuId) {
-        String sql = "DELETE FROM STOCK WHERE id_produktua=?";
+        //String sql = "DELETE FROM PRODUKTUAK WHERE id_produktua=?";
+        String sql= "UPDATE STOCK SET kantitate_totala=0 WHERE id_stock=?";
         
         try (Connection conn = Konexioa.konektatu();
                 PreparedStatement pstmt = conn.prepareStatement(sql)) {

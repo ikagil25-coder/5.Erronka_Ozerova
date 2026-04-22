@@ -4,7 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class SarrerakEtaIrteerak {
-    // --- SARRERAK ETA IRTEERAK ---
+    //  SARRERAK ETA IRTEERAK 
 
     public void sarreraErregistratu(int pId, int kantitatea, String donatzailea) {
         String sqlSarrera = "INSERT INTO Sarrerak (id_produktuak, data, kantitatea, donatzailea) VALUES (?, CURDATE(), ?, ?)";
@@ -70,7 +70,6 @@ public class SarrerakEtaIrteerak {
                 psIrteera.setString(3, helmuga);
                 psIrteera.executeUpdate();
 
-                // 3. Stock-a eguneratu (Kenketa)
                 psStock.setInt(1, kantitatea);
                 psStock.setInt(2, pId);
                 psStock.executeUpdate();
@@ -88,4 +87,92 @@ public class SarrerakEtaIrteerak {
         }
     }
 
+    //  BISTARATU 
+    public void sarrerakBistaratu() {
+        String sql = "SELECT * FROM Sarrerak";
+        try (Connection conn = Konexioa.konektatu();
+             PreparedStatement pstmt = conn.prepareStatement(sql);
+             ResultSet rs = pstmt.executeQuery()) {
+            System.out.println("\n--- SARRERAK ---");
+            while (rs.next()) {
+                System.out.println("ID Sarrera: " + rs.getInt("id_sarrera") + 
+                                   " | Produktu ID: " + rs.getInt("id_produktuak") + 
+                                   " | Kantitatea: " + rs.getInt("kantitatea") + 
+                                   " | Donatzailea: " + rs.getString("donatzailea") + 
+                                   " | Data: " + rs.getDate("data"));
+            }
+        } catch (SQLException e) {
+            System.out.println("Errorea sarrerak bistaratzean...");
+        }
+    }
+
+    public void irteerakBistaratu() {
+        String sql = "SELECT * FROM Irteerak";
+        try (Connection conn = Konexioa.konektatu();
+             PreparedStatement pstmt = conn.prepareStatement(sql);
+             ResultSet rs = pstmt.executeQuery()) {
+            System.out.println("\n--- IRTEERAK ---");
+            while (rs.next()) {
+                System.out.println("ID Irteera: " + rs.getInt("id_irteera") + 
+                                   " | Produktu ID: " + rs.getInt("id_produktuak") + 
+                                   " | Kantitatea: " + rs.getInt("kantitatea") + 
+                                   " | Helmuga: " + rs.getString("helmuga") + 
+                                   " | Data: " + rs.getDate("data"));
+            }
+        } catch (SQLException e) {
+            System.out.println("Errorea irteerak bistaratzean...");
+        }
+    }
+
+    // ALDATU
+    public void sarreraAldatu(int idSarrera, String donatzaileBerria) {
+        String sql = "UPDATE Sarrerak SET donatzailea = ? WHERE id_sarrera = ?";
+        try (Connection conn = Konexioa.konektatu();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, donatzaileBerria);
+            pstmt.setInt(2, idSarrera);
+            pstmt.executeUpdate();
+            System.out.println("Sarreraren donatzailea aldatu da!");
+        } catch (SQLException e) {
+            System.out.println("Errorea sarrera aldatzean...");
+        }
+    }
+
+    public void irteeraAldatu(int idIrteera, String helmugaBerria) {
+        String sql = "UPDATE Irteerak SET helmuga = ? WHERE id_irteera = ?";
+        try (Connection conn = Konexioa.konektatu();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, helmugaBerria);
+            pstmt.setInt(2, idIrteera);
+            pstmt.executeUpdate();
+            System.out.println("Irteeraren helmuga aldatu da!");
+        } catch (SQLException e) {
+            System.out.println("Errorea irteera aldatzean...");
+        }
+    }
+
+    //  EZABATU 
+    public void sarreraEzabatu(int idSarrera) {
+        String sql = "DELETE FROM Sarrerak WHERE id_sarrera = ?";
+        try (Connection conn = Konexioa.konektatu();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, idSarrera);
+            pstmt.executeUpdate();
+            System.out.println("Sarrera ezabatu da!");
+        } catch (SQLException e) {
+            System.out.println("Errorea sarrera ezabatzean...");
+        }
+    }
+
+    public void irteeraEzabatu(int idIrteera) {
+        String sql = "DELETE FROM Irteerak WHERE id_irteera = ?";
+        try (Connection conn = Konexioa.konektatu();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, idIrteera);
+            pstmt.executeUpdate();
+            System.out.println("Irteera ezabatu da!");
+        } catch (SQLException e) {
+            System.out.println("Errorea irteera ezabatzean...");
+        }
+    }
 }

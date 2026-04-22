@@ -42,6 +42,12 @@ public class Menuak {
             System.out.println("\n---  KUDEATZAILEA ---");
             System.out.println("1. Sarrera berria sortu");
             System.out.println("2. Irteera berria sortu");
+            System.out.println("3. Sarrerak bistaratu");
+            System.out.println("4. Sarrera aldatu (Donatzailea)");
+            System.out.println("5. Sarrera ezabatu");
+            System.out.println("6. Irteerak bistaratu");
+            System.out.println("7. Irteera aldatu (Helmuga)");
+            System.out.println("8. Irteera ezabatu");
             System.out.println("0. Irten");
             System.out.print("Aukeratu zenbaki bat: ");
 
@@ -74,6 +80,42 @@ public class Menuak {
 
                     
                     kudeaketa.irteeraErregistratu(irteeraId, irteeraKantitatea, helmuga);
+                    break;
+
+                case "3":
+                    kudeaketa.sarrerakBistaratu();
+                    break;
+
+                case "4":
+                    System.out.println("Idatzi aldatu nahi duzun sarreraren ID-a:");
+                    int sAldatuId = Integer.parseInt(sc.nextLine());
+                    System.out.println("Idatzi donatzaile berria:");
+                    String donBerria = sc.nextLine();
+                    kudeaketa.sarreraAldatu(sAldatuId, donBerria);
+                    break;
+
+                case "5":
+                    System.out.println("Idatzi ezabatu nahi duzun sarreraren ID-a:");
+                    int sEzabatuId = Integer.parseInt(sc.nextLine());
+                    kudeaketa.sarreraEzabatu(sEzabatuId);
+                    break;
+
+                case "6":
+                    kudeaketa.irteerakBistaratu();
+                    break;
+
+                case "7":
+                    System.out.println("Idatzi aldatu nahi duzun irteeraren ID-a:");
+                    int iAldatuId = Integer.parseInt(sc.nextLine());
+                    System.out.println("Idatzi helmuga berria:");
+                    String helBerria = sc.nextLine();
+                    kudeaketa.irteeraAldatu(iAldatuId, helBerria);
+                    break;
+
+                case "8":
+                    System.out.println("Idatzi ezabatu nahi duzun irteeraren ID-a:");
+                    int iEzabatuId = Integer.parseInt(sc.nextLine());
+                    kudeaketa.irteeraEzabatu(iEzabatuId);
                     break;
 
                 case "0":

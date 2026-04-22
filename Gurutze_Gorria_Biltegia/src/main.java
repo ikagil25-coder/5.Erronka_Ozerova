@@ -16,9 +16,12 @@ public class Main {
         stockKudeaketa.produktuaGehitu(p3);
         stockKudeaketa.produktuaGehitu(p4);
         
-       
-
-        System.out.println("--- Gurutze Gorria Biltegia - Sartu zure datuak ---");
+        
+        System.out.println("\n--- 2. Datu-basetik informazioa memoriara kargatzen ---");
+        InformazioaKargatu kargatzailea = new InformazioaKargatu();
+        java.util.ArrayList<Produktuak> nireStockMemoria = kargatzailea.kargatuInformazioa();
+        
+        System.out.println("\n--- Gurutze Gorria Biltegia - Sartu zure datuak ---");
         Login loginProzesua = new Login();
         String rol = loginProzesua.logina();
 

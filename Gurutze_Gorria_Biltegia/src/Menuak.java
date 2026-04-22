@@ -58,7 +58,7 @@ public class Menuak {
                     System.out.println("Zein da donatzailea?");
                     String donatzailea = sc.nextLine();
 
-                    // Funtzioari deitu!
+                    
                     kudeaketa.sarreraErregistratu(sarreraId, sarreraKantitatea, donatzailea);
                     break;
 
@@ -72,7 +72,7 @@ public class Menuak {
                     System.out.println("Nora bidaliko dira? (Helmuga)");
                     String helmuga = sc.nextLine();
 
-                    // Funtzioari deitu!
+                    
                     kudeaketa.irteeraErregistratu(irteeraId, irteeraKantitatea, helmuga);
                     break;
 
@@ -123,8 +123,7 @@ public class Menuak {
 
                         System.out.println("Idatzi produktuaren erreferentzia (Adib: IR12345, ER12345, EZ12345):");
                         p.setErreferentzia(sc.nextLine().toUpperCase());
-                        System.out.println("Idatzi produktu mota (1-Iragankorra, 2-Erdi, 3-Ez):");
-                        p.setMota(Integer.parseInt(sc.nextLine()));
+                       
 
                         System.out.println("Idatzi produktuaren fabrikatzailea");
                         p.setFabrikatzailea(sc.nextLine());
@@ -134,7 +133,12 @@ public class Menuak {
 
                         System.out.println("Idatzi produktuaren kokapen ID-a (Zenbakia):");
                         p.setKokapen_id(Integer.parseInt(sc.nextLine()));
-
+                        
+                        System.out.println("Idatzi produktu mota (1-Iragankorra, 2-Erdi, 3-Ez):");
+                        p.setMota(Integer.parseInt(sc.nextLine()));
+if(p.getMota()==1){
+    
+}
                         nireStock.produktuaGehitu(p);
                     }
                     System.out.println("\nProzesua amaitu da. Produktu guztiak datu-basean sartu dira.");

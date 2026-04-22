@@ -14,12 +14,15 @@ public class Main {
 
         switch (rol.toLowerCase()) {
             case "admin":
+            case "administratzailea":
                 Menuak.erakutsiAdminMenua();
                 break;
+            case "kudeatzaile":
             case "kudeatzailea":
                 Menuak.erakutsiSarreraIrteeraMenua();
                 break;
             case "stock":
+            case "stock langilea":
                 Menuak.erakutsiStockMenua();
                 break;
             default:

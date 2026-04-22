@@ -23,6 +23,38 @@ public class Stock {
 
             pstmt.executeUpdate();
 
+            if (p instanceof Iragankorra) {
+                Iragankorra ira = (Iragankorra) p;
+
+                String sqlIragankorra = "INSERT INTO Iragankorra (id_produktuak, iraungitze_data, hoztea_beharrezkoa)VALUES(?,?,?)";
+                try (PreparedStatement psIra = conn.prepareStatement(sqlIragankorra)) {
+                    psIra.setInt(1, p.getProduktu_id());
+                    psIra.setString(2, ira.getIraungitzeData());
+                    psIra.setBoolean(3, ira.isHozteaBeharrezkoa());
+                    psIra.executeUpdate();
+                }
+            } else if (p instanceof ErdiIragankorra) {
+                ErdiIragankorra erdi = (ErdiIragankorra) p;
+
+                String sqlErdiIragankorra = "INSERT INTO Erdi_Iragankorra(id_produktuak,iraungitze_data, hoztea, hezetasuna)VALUES (?,?,?,?)";
+                try (PreparedStatement psErdi = conn.prepareStatement(sqlErdiIragankorra)) {
+                    psErdi.setInt(1, p.getProduktu_id());
+                    psErdi.setString(2, erdi.getIraungitzeData());
+                    psErdi.setBoolean(3, erdi.isHozteaBeharrezkoa());
+                    psErdi.setDouble(4, erdi.getHezetasunMaximoa());
+                    psErdi.executeUpdate();
+                }
+            } else if (p instanceof EzIragankorra) {
+                EzIragankorra ezira = (EzIragankorra) p;
+                String sqlEzIragankorra = "INSERT INTO Ez_Iragankorra(id_produktuak, kontserba)VALUES (?,?)";
+                try (PreparedStatement psEz = conn.prepareStatement(sqlEzIragankorra)) {
+                    psEz.setInt(1, p.getProduktu_id());
+                    psEz.setBoolean(2, ezira.isKontserba());
+                    psEz.executeUpdate();
+                }
+            }
+
+          
             System.out.println("Produktua ondo gorde da datu basean!");
 
         } catch (SQLException e) {
@@ -98,7 +130,7 @@ public class Stock {
         }
     }
 
-    //  STOCK KONTSULTAK 
+    // STOCK KONTSULTAK
 
     public void stockGehienDuenProduktua() {
         String sql = "SELECT p.izena, s.kantitate_totala FROM Produktuak p JOIN Stock s ON p.id_produktuak = s.id_produktuak ORDER BY s.kantitate_totala DESC LIMIT 1";

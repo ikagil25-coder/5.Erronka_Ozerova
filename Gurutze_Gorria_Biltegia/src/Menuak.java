@@ -135,10 +135,56 @@ public class Menuak {
                         p.setKokapen_id(Integer.parseInt(sc.nextLine()));
                         
                         System.out.println("Idatzi produktu mota (1-Iragankorra, 2-Erdi, 3-Ez):");
-                        p.setMota(Integer.parseInt(sc.nextLine()));
-if(p.getMota()==1){
-    
-}
+                     int mota= Integer.parseInt(sc.nextLine());
+
+
+                     if (mota==1) {
+                        System.out.println("Idatzi iraugitze data (mm/dd/yyyy):");
+                        String iraungitzeData = sc.nextLine();
+
+                        System.out.println("Behar du hoztea?(true/false)");
+                        boolean hoztea=Boolean.parseBoolean(sc.nextLine());
+
+
+                        p = new Iragankorra(
+                            p.getProduktu_id(), p.getErreferentzia(), p.getIzena(), p.getFabrikatzailea(),
+                            p.getPasilo_zbk(), p.getKokapen_id(), p.getMota(),
+                            iraungitzeData, hoztea
+                        );
+                     }else if (mota==2) {
+                       System.out.println("Idatzi iraugitze data (mm/dd/yyyy):");
+                        String iraungitzeData = sc.nextLine();
+
+                        System.out.println("Behar du hoztea?(true/false)");
+                        boolean hoztea=Boolean.parseBoolean(sc.nextLine());
+                        System.out.println("Idatzi hezetasun maximoa ");
+                        double hezetasuna=Double.parseDouble(sc.nextLine());
+
+
+                        p = new ErdiIragankorra(p.getProduktu_id(),
+                         p.getErreferentzia(),
+                          p.getIzena(),
+                           p.getFabrikatzailea(),
+                            p.getPasilo_zbk(),
+                             p.getKokapen_id(),
+                              p.getMota(),
+                               iraungitzeData,
+                                hoztea,
+                                 hezetasuna);
+                     }else if(mota==3){
+                        System.out.println("Produktua kontserba bat da?(true/false)");
+                        boolean kontserba=Boolean.parseBoolean(sc.nextLine());
+
+                        p=new EzIragankorra(p.getProduktu_id(),
+                         p.getErreferentzia(),
+                          p.getIzena(),
+                           p.getFabrikatzailea(),
+                            p.getPasilo_zbk(),
+                             p.getKokapen_id(),
+                              p.getMota(),
+                               kontserba);
+                     }
+
                         nireStock.produktuaGehitu(p);
                     }
                     System.out.println("\nProzesua amaitu da. Produktu guztiak datu-basean sartu dira.");
@@ -199,7 +245,6 @@ if(p.getMota()==1){
                     System.out.println("Sartu duzun zenbakia ez da zuzena, saiatu berriro.");
                     break;
             }
-            sc.close();
         }
     }
 }

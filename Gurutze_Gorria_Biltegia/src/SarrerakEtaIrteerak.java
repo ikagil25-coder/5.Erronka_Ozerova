@@ -40,7 +40,7 @@ public class SarrerakEtaIrteerak {
 
     public void irteeraErregistratu(int pId, int kantitatea, String helmuga) {
         String sqlStockCheck = "SELECT kantitate_totala FROM Stock WHERE id_produktuak = ?";
-        String sqlIrteera = "INSERT INTO Irteerak (id_produktuak, kantitatea, helmuga) VALUES (?, ?, ?)";
+        String sqlIrteera = "INSERT INTO Irteerak (id_produktuak, kantitatea, helmuga, data) VALUES (?, ?, ?, CURDATE())";
         String sqlStockUpdate = "UPDATE Stock SET kantitate_totala = kantitate_totala - ? WHERE id_produktuak = ?";
 
         try (Connection conn = Konexioa.konektatu()) {

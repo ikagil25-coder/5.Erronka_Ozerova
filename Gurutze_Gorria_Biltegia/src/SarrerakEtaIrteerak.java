@@ -11,10 +11,8 @@ public class SarrerakEtaIrteerak {
         String sqlStock = "UPDATE Stock SET kantitate_totala = kantitate_totala + ? WHERE id_produktuak = ?";
 
         try (Connection conn = Konexioa.konektatu()) {
-            conn.setAutoCommit(false);
-
             try (PreparedStatement psSarrera = conn.prepareStatement(sqlSarrera);
-                    PreparedStatement psStock = conn.prepareStatement(sqlStock)) {
+                 PreparedStatement psStock = conn.prepareStatement(sqlStock)) {
 
                 psSarrera.setInt(1, pId);
                 psSarrera.setInt(2, kantitatea);
@@ -25,12 +23,8 @@ public class SarrerakEtaIrteerak {
                 psStock.setInt(2, pId);
                 psStock.executeUpdate();
 
-                conn.commit();
                 System.out.println("Sarrera ondo erregistratu da eta stock-a eguneratu da.");
 
-            } catch (SQLException e) {
-                conn.rollback();
-                throw e;
             }
         } catch (SQLException e) {
             System.out.println("Errorea sarrera egiterakoan...");
@@ -61,10 +55,8 @@ public class SarrerakEtaIrteerak {
                 }
             }
 
-            conn.setAutoCommit(false);
-
             try (PreparedStatement psIrteera = conn.prepareStatement(sqlIrteera);
-                    PreparedStatement psStock = conn.prepareStatement(sqlStockUpdate)) {
+                 PreparedStatement psStock = conn.prepareStatement(sqlStockUpdate)) {
                 psIrteera.setInt(1, pId);
                 psIrteera.setInt(2, kantitatea);
                 psIrteera.setString(3, helmuga);
@@ -74,12 +66,8 @@ public class SarrerakEtaIrteerak {
                 psStock.setInt(2, pId);
                 psStock.executeUpdate();
 
-                conn.commit();
                 System.out.println("Irteera ondo erregistratu da.");
 
-            } catch (SQLException e) {
-                conn.rollback();
-                throw e;
             }
         } catch (SQLException e) {
             System.out.println("Errorea irteera egiterakoan...");

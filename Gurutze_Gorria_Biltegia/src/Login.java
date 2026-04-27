@@ -5,7 +5,6 @@ import java.sql.SQLException;
 import java.util.Scanner;
 
 public class Login {
-    @SuppressWarnings("resource")
     public String logina() {
         Scanner sc = new Scanner(System.in);
         System.out.println("Kaixo, sartu erabiltzailea:");

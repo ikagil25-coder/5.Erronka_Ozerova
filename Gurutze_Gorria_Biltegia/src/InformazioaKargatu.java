@@ -5,14 +5,14 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class InformazioaKargatu {
-    
+
     public ArrayList<Produktuak> kargatuInformazioa() {
         ArrayList<Produktuak> produktuZerrenda = new ArrayList<>();
         String sqlProduktuak = "SELECT * FROM Produktuak";
 
         try (Connection conn = Konexioa.konektatu();
-             PreparedStatement pstmt = conn.prepareStatement(sqlProduktuak);
-             ResultSet rs = pstmt.executeQuery()) {
+                PreparedStatement pstmt = conn.prepareStatement(sqlProduktuak);
+                ResultSet rs = pstmt.executeQuery()) {
 
             while (rs.next()) {
                 int id = rs.getInt("id_produktuak");
@@ -29,7 +29,8 @@ public class InformazioaKargatu {
                         psIra.setInt(1, id);
                         ResultSet rsIra = psIra.executeQuery();
                         if (rsIra.next()) {
-                            Iragankorra pIra = new Iragankorra(id, ref, izena, fab, pasilo, kokapen, mota, rsIra.getString("iraungitze_data"), rsIra.getBoolean("hoztea"));
+                            Iragankorra pIra = new Iragankorra(id, ref, izena, fab, pasilo, kokapen, mota,
+                                    rsIra.getString("iraungitze_data"), rsIra.getBoolean("hoztea"));
                             produktuZerrenda.add(pIra);
                         }
                     }
@@ -39,7 +40,9 @@ public class InformazioaKargatu {
                         psErdi.setInt(1, id);
                         ResultSet rsErdi = psErdi.executeQuery();
                         if (rsErdi.next()) {
-                            ErdiIragankorra pErdi = new ErdiIragankorra(id, ref, izena, fab, pasilo, kokapen, mota, rsErdi.getString("iraungitze_data"), rsErdi.getBoolean("hoztea"), rsErdi.getDouble("hezetasuna"));
+                            ErdiIragankorra pErdi = new ErdiIragankorra(id, ref, izena, fab, pasilo, kokapen, mota,
+                                    rsErdi.getString("iraungitze_data"), rsErdi.getBoolean("hoztea"),
+                                    rsErdi.getDouble("hezetasuna"));
                             produktuZerrenda.add(pErdi);
                         }
                     }
@@ -49,7 +52,8 @@ public class InformazioaKargatu {
                         psEz.setInt(1, id);
                         ResultSet rsEz = psEz.executeQuery();
                         if (rsEz.next()) {
-                            EzIragankorra pEz = new EzIragankorra(id, ref, izena, fab, pasilo, kokapen, mota, rsEz.getBoolean("kontserba"));
+                            EzIragankorra pEz = new EzIragankorra(id, ref, izena, fab, pasilo, kokapen, mota,
+                                    rsEz.getBoolean("kontserba"));
                             produktuZerrenda.add(pEz);
                         }
                     }

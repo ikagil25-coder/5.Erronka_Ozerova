@@ -2,7 +2,6 @@ import java.util.Scanner;
 
 public class Menuak {
 
-    @SuppressWarnings("resource")
     public static void erakutsiAdminMenua() {
         Scanner sc = new Scanner(System.in);
         boolean irten = false;
@@ -34,7 +33,6 @@ public class Menuak {
         }
     }
 
-    @SuppressWarnings("resource")
     public static void erakutsiSarreraIrteeraMenua() {
         Scanner sc = new Scanner(System.in);
         SarrerakEtaIrteerak kudeaketa = new SarrerakEtaIrteerak();
@@ -132,7 +130,6 @@ public class Menuak {
         }
     }
 
-    @SuppressWarnings("resource")
     public static void erakutsiStockMenua() {
         Scanner sc = new Scanner(System.in);
         boolean irten = false;

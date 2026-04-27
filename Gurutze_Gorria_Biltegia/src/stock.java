@@ -4,6 +4,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class Stock {
+    private String idBiltegia;
+
+    public Stock(String idBiltegia) {
+        this.idBiltegia = idBiltegia;
+    }
 
     // --- CRUD METODOAK ---
 
@@ -14,7 +19,7 @@ public class Stock {
                 PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
             pstmt.setInt(1, p.getProduktu_id());
-            pstmt.setString(2, "BIL-001");
+            pstmt.setString(2, this.idBiltegia);
             pstmt.setString(3, p.getErreferentzia());
             pstmt.setString(4, p.getIzena());
             pstmt.setString(5, p.getFabrikatzailea());
@@ -91,9 +96,9 @@ public class Stock {
 
     public void produktuaEzabatu(int ezabatuId) {
         String sql = "UPDATE Stock SET kantitate_totala = 0 WHERE id_produktuak = ?";
-        
+
         try (Connection conn = Konexioa.konektatu();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
             pstmt.setInt(1, ezabatuId);
 

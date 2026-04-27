@@ -2,12 +2,12 @@ import java.util.Scanner;
 
 public class Menuak {
 
-    public static void erakutsiAdminMenua() {
+    public static void erakutsiAdminMenua(String biltegiKodea) {
         Scanner sc = new Scanner(System.in);
         boolean irten = false;
 
         while (!irten) {
-            System.out.println("\n--- ADMINISTRATZAILE MENUA ---");
+            System.out.println("\n--- ADMINISTRATZAILE MENUA (" + biltegiKodea + ") ---");
             System.out.println("1. Kudeatzaile menua erabili (Sarrerak/Irteerak)");
             System.out.println("2. Stock kudeatzaile menua erabili (Produktuak)");
             System.out.println("0. Irten / Saioa itxi");
@@ -17,10 +17,10 @@ public class Menuak {
 
             switch (aukera) {
                 case "1":
-                    erakutsiSarreraIrteeraMenua();
+                    erakutsiSarreraIrteeraMenua(biltegiKodea);
                     break;
                 case "2":
-                    erakutsiStockMenua();
+                    erakutsiStockMenua(biltegiKodea);
                     break;
                 case "0":
                     irten = true;
@@ -33,12 +33,13 @@ public class Menuak {
         }
     }
 
-    public static void erakutsiSarreraIrteeraMenua() {
+    public static void erakutsiSarreraIrteeraMenua(String biltegiKodea) {
         Scanner sc = new Scanner(System.in);
-        SarrerakEtaIrteerak kudeaketa = new SarrerakEtaIrteerak();
+        SarrerakEtaIrteerak kudeaketa = new SarrerakEtaIrteerak(biltegiKodea);
         boolean irten = false;
 
         while (!irten) {
+            
             System.out.println("\n---  KUDEATZAILEA ---");
             System.out.println("1. Sarrera berria sortu");
             System.out.println("2. Irteera berria sortu");
@@ -130,7 +131,7 @@ public class Menuak {
         }
     }
 
-    public static void erakutsiStockMenua() {
+    public static void erakutsiStockMenua(String biltegiKodea) {
         Scanner sc = new Scanner(System.in);
         boolean irten = false;
 
@@ -145,7 +146,7 @@ public class Menuak {
             System.out.println("7. Donaziorik ez duten produktuak bueltatu ");
             System.out.println("0. Irten");
             System.out.print("Aukeratu zenbaki bat: ");
-            Stock nireStock = new Stock();
+            Stock nireStock = new Stock(biltegiKodea);
             String aukera = sc.nextLine();
             switch (aukera) {
 

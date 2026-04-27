@@ -12,6 +12,11 @@ public class Login {
         System.out.println("Kaixo, sartu pasahitza:");
         String pasahitza = sc.nextLine();
 
+        // Admin/admin login fijo
+        if (erabiltzailea.equals("admin") && pasahitza.equals("admin")) {
+            return "admin";
+        }
+
         String sql = "SELECT r.deskribapena FROM Erabiltzaileak e JOIN Rola r ON e.id_rola = r.id_rola WHERE e.izena = ? AND e.pasahitza = ?";
         String rolObtenido = null;
 

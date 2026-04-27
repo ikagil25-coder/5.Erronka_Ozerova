@@ -4,6 +4,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class SarrerakEtaIrteerak {
+    private String idBiltegia;
+
+    public SarrerakEtaIrteerak(String idBiltegia) {
+        this.idBiltegia = idBiltegia;
+    }
+
     //  SARRERAK ETA IRTEERAK 
 
     public void sarreraErregistratu(int pId, int kantitatea, String donatzailea) {

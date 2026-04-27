@@ -1,9 +1,8 @@
+import java.util.Scanner;
+
 public class Main {
     public static void main(String[] args) {
-        
-        Stock stockKudeaketa = new Stock();
-        SarrerakEtaIrteerak mugimenduak = new SarrerakEtaIrteerak();
-        
+
         System.out.println("\n--- Gurutze Gorria Biltegia - Sartu zure datuak ---");
         Login loginProzesua = new Login();
         String rol = loginProzesua.logina();
@@ -15,18 +14,23 @@ public class Main {
 
         System.out.println("\nOngi etorri! Zure rola: " + rol.toUpperCase());
 
+        // Admin-ek biltegi bat aukeratu behar du
+        Scanner sc = new Scanner(System.in);
+        System.out.println("\nZe biltegi kudeatuko duzu? (BIL-001 / BIL-002)");
+        String biltegiKodea = sc.nextLine().toUpperCase();
+
         switch (rol.toLowerCase()) {
             case "admin":
             case "administratzailea":
-                Menuak.erakutsiAdminMenua();
+                Menuak.erakutsiAdminMenua(biltegiKodea);
                 break;
             case "kudeatzaile":
             case "kudeatzailea":
-                Menuak.erakutsiSarreraIrteeraMenua();
+                Menuak.erakutsiSarreraIrteeraMenua(biltegiKodea);
                 break;
             case "stock":
             case "stock langilea":
-                Menuak.erakutsiStockMenua();
+                Menuak.erakutsiStockMenua(biltegiKodea);
                 break;
             default:
                 System.out.println("Rola ez da zuzena.");

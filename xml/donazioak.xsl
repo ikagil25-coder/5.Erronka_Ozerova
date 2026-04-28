@@ -3,47 +3,117 @@
     <xsl:output method="html" encoding="UTF-8" indent="yes"/>
 
     <xsl:template match="/">
-        <html>
+        <html lang="eu">
             <head>
-                <title>Donazioak</title>
+                <title>ELIKAGAI DOHAINAK</title>
+                <style>
+                    body {
+                        font-family: Arial, sans-serif;
+                        background-color: #f0f4f7;
+                        margin: 0;
+                        padding: 0;
+                        color: #333;
+                    }
+
+                    .header-container {
+                        background-color: white;
+                        padding: 20px 0;
+                        text-align: center;
+                        border-bottom: 1px solid #ccc;
+                    }
+
+                    h1 {
+                        font-size: 28px;
+                        color: #333;
+                        margin: 0;
+                        text-transform: uppercase;
+                        letter-spacing: 1px;
+                    }
+
+                    .main-content {
+                        padding: 40px 10%;
+                    }
+
+                    h2 {
+                        font-size: 24px;
+                        margin-bottom: 20px;
+                        font-weight: normal;
+                    }
+
+                    table {
+                        width: 100%;
+                        border-collapse: collapse;
+                        background-color: white;
+                        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+                    }
+
+                    th {
+                        background-color: #c9d6df;
+                        color: #333;
+                        padding: 12px;
+                        border: 1px solid #999;
+                        font-size: 14px;
+                    }
+
+                    td {
+                        padding: 10px;
+                        border: 1px solid #ccc;
+                        font-size: 14px;
+                    }
+
+                    tr:nth-child(even) {
+                        background-color: #f9f9f9;
+                    }
+                </style>
             </head>
             <body>
-                <h1>Donazioen Zerrenda</h1>
-                <xsl:for-each select="donazioak/donazioa">
-                    <div style="border: 1px solid black; margin: 10px; padding: 10px;">
-                        <h2>Enpresa: <xsl:value-of select="enpresa_emailea/enpresaren_izena"/> (<xsl:value-of select="enpresa_emailea/ifk"/>)</h2>
-                        <p>Data: <xsl:value-of select="data"/></p>
-                        
-                        <table border="1">
+                <div class="header-container">
+                    <h1>ELIKAGAI DONAZIOAK</h1>
+                </div>
+
+                <div class="main-content">
+                    <h2>Eguneko Donazioak</h2>
+                    <table>
+                        <thead>
                             <tr>
-                                <th>Produktua</th>
-                                <th>Erreferentzia</th>
-                                <th>Mota</th>
-                                <th>Kopurua</th>
-                                <th>Ekoizlea</th>
-                                <th>Xehetasunak</th>
+                                <th>&lt;Mota&gt;</th>
+                                <th>&lt;Erreferentzia&gt;</th>
+                                <th>&lt;Produktu Izena&gt;</th>
+                                <th>&lt;Kopurua&gt;</th>
+                                <th>&lt;Ekoizlea&gt;</th>
+                                <th>&lt;Iraungitze Data&gt;</th>
+                                <th>&lt;Hoztuta Mantendu&gt;</th>
                             </tr>
-                            <xsl:for-each select="elikagaiak/elikagaia">
+                        </thead>
+                        <tbody>
+                            <xsl:for-each select="donazioak/donazioa/elikagaiak/elikagaia">
                                 <tr>
-                                    <td><xsl:value-of select="produktuaren_izena"/></td>
-                                    <td><xsl:value-of select="erreferentzia"/></td>
                                     <td><xsl:value-of select="@mota"/></td>
+                                    <td><xsl:value-of select="erreferentzia"/></td>
+                                    <td><xsl:value-of select="produktuaren_izena"/></td>
                                     <td><xsl:value-of select="kopurua"/></td>
                                     <td><xsl:value-of select="manufakturatzen_duen_enpresa"/></td>
                                     <td>
-                                        <xsl:if test="@mota='iragankorra'">
-                                            Iraungitzea: <xsl:value-of select="iraungitze_data"/> / 
-                                            Hoztea: <xsl:value-of select="hoztuta_mantendu"/>
-                                        </xsl:if>
-                                        <xsl:if test="@mota='ez iragankorra'">
-                                            Kontserba: <xsl:value-of select="kontserba"/>
-                                        </xsl:if>
+                                        <xsl:choose>
+                                            <xsl:when test="iraungitze_data">
+                                                <xsl:value-of select="iraungitze_data"/>
+                                            </xsl:when>
+                                            <xsl:otherwise>-</xsl:otherwise>
+                                        </xsl:choose>
+                                    </td>
+                                    <td>
+                                        <xsl:choose>
+                                            <xsl:when test="hoztuta_mantendu">
+                                                <xsl:value-of select="hoztuta_mantendu"/>
+                                            </xsl:when>
+                                            <xsl:otherwise>-</xsl:otherwise>
+                                        </xsl:choose>
                                     </td>
                                 </tr>
                             </xsl:for-each>
-                        </table>
-                    </div>
-                </xsl:for-each>
+                        </tbody>
+                    </table>
+                </div>
             </body>
         </html>
     </xsl:template>

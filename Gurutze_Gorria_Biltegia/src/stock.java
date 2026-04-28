@@ -14,6 +14,7 @@ public class Stock {
 
     public void produktuaGehitu(Produktuak p) {
         String sql = "INSERT INTO Produktuak (id_produktuak, id_biltegia, erreferentzia, izena, fabrikatzailea, kokapen_id, mota) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        String sqlStock = "INSERT INTO Stock (id_produktuak, kantitate_totala) VALUES (?, 0)";
 
         try (Connection conn = Konexioa.konektatu();
                 PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -31,7 +32,7 @@ public class Stock {
             if (p instanceof Iragankorra) {
                 Iragankorra ira = (Iragankorra) p;
 
-                String sqlIragankorra = "INSERT INTO Iragankorra (id_produktuak, iraungitze_data, hoztea_beharrezkoa)VALUES(?,?,?)";
+                String sqlIragankorra = "INSERT INTO Iragankorrak (id_produktuak, iraungitze_data, hoztea) VALUES (?,?,?)";
                 try (PreparedStatement psIra = conn.prepareStatement(sqlIragankorra)) {
                     psIra.setInt(1, p.getProduktu_id());
                     psIra.setString(2, ira.getIraungitzeData());
@@ -41,7 +42,7 @@ public class Stock {
             } else if (p instanceof ErdiIragankorra) {
                 ErdiIragankorra erdi = (ErdiIragankorra) p;
 
-                String sqlErdiIragankorra = "INSERT INTO Erdi_Iragankorra(id_produktuak,iraungitze_data, hoztea, hezetasuna)VALUES (?,?,?,?)";
+                String sqlErdiIragankorra = "INSERT INTO Erdi_Iragankorrak(id_produktuak, iraungitze_data, hoztea, hezetasuna) VALUES (?,?,?,?)";
                 try (PreparedStatement psErdi = conn.prepareStatement(sqlErdiIragankorra)) {
                     psErdi.setInt(1, p.getProduktu_id());
                     psErdi.setString(2, erdi.getIraungitzeData());
@@ -51,12 +52,17 @@ public class Stock {
                 }
             } else if (p instanceof EzIragankorra) {
                 EzIragankorra ezira = (EzIragankorra) p;
-                String sqlEzIragankorra = "INSERT INTO Ez_Iragankorra(id_produktuak, kontserba)VALUES (?,?)";
+                String sqlEzIragankorra = "INSERT INTO Ez_Iragankorrak(id_produktuak, kontserba) VALUES (?,?)";
                 try (PreparedStatement psEz = conn.prepareStatement(sqlEzIragankorra)) {
                     psEz.setInt(1, p.getProduktu_id());
                     psEz.setBoolean(2, ezira.isKontserba());
                     psEz.executeUpdate();
                 }
+            }
+
+            try (PreparedStatement psStock = conn.prepareStatement(sqlStock)) {
+                psStock.setInt(1, p.getProduktu_id());
+                psStock.executeUpdate();
             }
 
             System.out.println("Produktua ondo gorde da datu basean!");

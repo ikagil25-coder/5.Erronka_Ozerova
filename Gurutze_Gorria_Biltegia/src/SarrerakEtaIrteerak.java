@@ -12,12 +12,14 @@ public class SarrerakEtaIrteerak {
 
     //  SARRERAK ETA IRTEERAK 
 
-    public void sarreraErregistratu(int pId, int kantitatea, String donatzailea) {
+    public void sarreraErregistratu(int pId, int kantitatea, String donatzailea, String nanDonatzailea) {
         String sqlSarrera = "INSERT INTO Sarrerak (id_produktuak, data, kantitatea, donatzailea) VALUES (?, CURDATE(), ?, ?)";
+        String sqlDonazioa = "INSERT INTO Donazioak (id_produktuak, nan_donatzailea, kantitatea, data) VALUES (?, ?, ?, CURDATE())";
         String sqlStock = "UPDATE Stock SET kantitate_totala = kantitate_totala + ? WHERE id_produktuak = ?";
 
         try (Connection conn = Konexioa.konektatu()) {
             try (PreparedStatement psSarrera = conn.prepareStatement(sqlSarrera);
+                 PreparedStatement psDonazioa = conn.prepareStatement(sqlDonazioa);
                  PreparedStatement psStock = conn.prepareStatement(sqlStock)) {
 
                 psSarrera.setInt(1, pId);
@@ -25,11 +27,16 @@ public class SarrerakEtaIrteerak {
                 psSarrera.setString(3, donatzailea);
                 psSarrera.executeUpdate();
 
+                psDonazioa.setInt(1, pId);
+                psDonazioa.setString(2, nanDonatzailea);
+                psDonazioa.setInt(3, kantitatea);
+                psDonazioa.executeUpdate();
+
                 psStock.setInt(1, kantitatea);
                 psStock.setInt(2, pId);
                 psStock.executeUpdate();
 
-                System.out.println("Sarrera ondo erregistratu da eta stock-a eguneratu da.");
+                System.out.println("Sarrera ondo erregistratu da, donazioa gorde da eta stock-a eguneratu da.");
 
             }
         } catch (SQLException e) {

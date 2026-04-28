@@ -65,8 +65,10 @@ public class Menuak {
                     System.out.println("Zein da donatzailea?");
                     String donatzailea = sc.nextLine();
 
-                    
-                    kudeaketa.sarreraErregistratu(sarreraId, sarreraKantitatea, donatzailea);
+                    System.out.println("Idatzi donatzailearen NAN-a (9 karaktere, adib: 12345678A):");
+                    String nanDonatzailea = sc.nextLine();
+
+                    kudeaketa.sarreraErregistratu(sarreraId, sarreraKantitatea, donatzailea, nanDonatzailea);
                     break;
 
                 case "2":

@@ -4,8 +4,15 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+/**
+ * Informazioa kargatzeko klasea
+ */
 public class InformazioaKargatu {
 
+    /**
+     * Datu basetik kargatu informazioa
+     * @return ArrayList produktu guztien zerrenda
+     */
     public ArrayList<Produktuak> kargatuInformazioa() {
         ArrayList<Produktuak> produktuZerrenda = new ArrayList<>();
         String sqlProduktuak = "SELECT * FROM Produktuak";

@@ -4,7 +4,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Scanner;
 
+/**
+ * Login sistema kudeatzeko klasea
+ */
 public class Login {
+    /**
+     * Identifikatu erabiltzailea eta rola bueltatzen
+     * @return String erabiltzailearen rola, edo null baldin okerra bada
+     */
     public String logina() {
         Scanner sc = new Scanner(System.in);
         System.out.println("Kaixo, sartu erabiltzailea:");

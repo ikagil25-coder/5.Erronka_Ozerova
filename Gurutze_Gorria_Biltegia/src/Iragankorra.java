@@ -1,3 +1,6 @@
+/**
+ * Produktu iragankorren klasea
+ */
 public class Iragankorra extends ProduktuenBerezitasunak {
 
     public Iragankorra(int produktu_id, String erreferentzia, String izena, String fabrikatzailea, 

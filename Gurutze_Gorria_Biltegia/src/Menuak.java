@@ -1,7 +1,14 @@
 import java.util.Scanner;
 
+/**
+ * Menua bistaratzeko klasea
+ */
 public class Menuak {
 
+    /**
+     * Admin menua
+     * @param biltegiKodea biltegiaren kodea
+     */
     public static void erakutsiAdminMenua(String biltegiKodea) {
         Scanner sc = new Scanner(System.in);
         boolean irten = false;
@@ -33,6 +40,10 @@ public class Menuak {
         }
     }
 
+    /**
+     * Kudeatzaile menua
+     * @param biltegiKodea biltegiaren kodea
+     */
     public static void erakutsiSarreraIrteeraMenua(String biltegiKodea) {
         Scanner sc = new Scanner(System.in);
         SarrerakEtaIrteerak kudeaketa = new SarrerakEtaIrteerak(biltegiKodea);
@@ -133,6 +144,10 @@ public class Menuak {
         }
     }
 
+    /**
+     * Stock menua
+     * @param biltegiKodea biltegiaren kodea
+     */
     public static void erakutsiStockMenua(String biltegiKodea) {
         Scanner sc = new Scanner(System.in);
         boolean irten = false;

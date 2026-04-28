@@ -1,3 +1,6 @@
+/**
+ * Produktu ez-iragankorren klasea
+ */
 public class EzIragankorra extends ProduktuenBerezitasunak {
     private boolean kontserba;
 

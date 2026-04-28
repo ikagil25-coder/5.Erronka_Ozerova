@@ -3,6 +3,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * Sarrerak eta irteerak kudeatzeko klasea
+ */
 public class SarrerakEtaIrteerak {
     private String idBiltegia;
 
@@ -12,6 +15,13 @@ public class SarrerakEtaIrteerak {
 
     //  SARRERAK ETA IRTEERAK 
 
+    /**
+     * Sarrera erregistratu
+     * @param pId produktuaren ID-a
+     * @param kantitatea sarreraren kantitatea
+     * @param donatzailea donatzailearen izena
+     * @param nanDonatzailea donatzailearen NAN-a
+     */
     public void sarreraErregistratu(int pId, int kantitatea, String donatzailea, String nanDonatzailea) {
         String sqlSarrera = "INSERT INTO Sarrerak (id_produktuak, data, kantitatea, donatzailea) VALUES (?, CURDATE(), ?, ?)";
         String sqlDonazioa = "INSERT INTO Donazioak (id_produktuak, nan_donatzailea, kantitatea, data) VALUES (?, ?, ?, CURDATE())";
@@ -45,6 +55,12 @@ public class SarrerakEtaIrteerak {
         }
     }
 
+    /**
+     * Irteera erregistratu
+     * @param pId produktuaren ID-a
+     * @param kantitatea irteeraren kantitatea
+     * @param helmuga nora bidaltzen den
+     */
     public void irteeraErregistratu(int pId, int kantitatea, String helmuga) {
         String sqlStockCheck = "SELECT kantitate_totala FROM Stock WHERE id_produktuak = ?";
         String sqlIrteera = "INSERT INTO Irteerak (id_produktuak, kantitatea, helmuga, data) VALUES (?, ?, ?, CURDATE())";
@@ -89,6 +105,9 @@ public class SarrerakEtaIrteerak {
     }
 
     //  BISTARATU 
+    /**
+     * Sarrera guztiak bistaratu
+     */
     public void sarrerakBistaratu() {
         String sql = "SELECT * FROM Sarrerak";
         try (Connection conn = Konexioa.konektatu();
@@ -107,6 +126,9 @@ public class SarrerakEtaIrteerak {
         }
     }
 
+    /**
+     * Irteera guztiak bistaratu
+     */
     public void irteerakBistaratu() {
         String sql = "SELECT * FROM Irteerak";
         try (Connection conn = Konexioa.konektatu();
@@ -126,6 +148,11 @@ public class SarrerakEtaIrteerak {
     }
 
     // ALDATU
+    /**
+     * Sarrerak editatu
+     * @param idSarrera sarreraren ID-a
+     * @param donatzaileBerria donatzaile berriaren izena
+     */
     public void sarreraAldatu(int idSarrera, String donatzaileBerria) {
         String sql = "UPDATE Sarrerak SET donatzailea = ? WHERE id_sarrera = ?";
         try (Connection conn = Konexioa.konektatu();
@@ -139,6 +166,11 @@ public class SarrerakEtaIrteerak {
         }
     }
 
+    /**
+     * Irteerak aldatu
+     * @param idIrteera irteeraren ID-a
+     * @param helmugaBerria helmuga berria
+     */
     public void irteeraAldatu(int idIrteera, String helmugaBerria) {
         String sql = "UPDATE Irteerak SET helmuga = ? WHERE id_irteera = ?";
         try (Connection conn = Konexioa.konektatu();
@@ -153,6 +185,10 @@ public class SarrerakEtaIrteerak {
     }
 
     //  EZABATU 
+    /**
+     * Sarrera ezabatu
+     * @param idSarrera ezabatu nahi den sarreraren ID-a
+     */
     public void sarreraEzabatu(int idSarrera) {
         String sql = "DELETE FROM Sarrerak WHERE id_sarrera = ?";
         try (Connection conn = Konexioa.konektatu();
@@ -165,6 +201,10 @@ public class SarrerakEtaIrteerak {
         }
     }
 
+    /**
+     * Irteera ezabatu
+     * @param idIrteera ezabatu nahi den irteeraren ID-a
+     */
     public void irteeraEzabatu(int idIrteera) {
         String sql = "DELETE FROM Irteerak WHERE id_irteera = ?";
         try (Connection conn = Konexioa.konektatu();

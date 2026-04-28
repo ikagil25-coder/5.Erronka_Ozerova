@@ -1,3 +1,6 @@
+/**
+ * Produktu erdi-iragankorren klasea
+ */
 public class ErdiIragankorra extends ProduktuenBerezitasunak {
 
     private double hezetasunMaximoa;

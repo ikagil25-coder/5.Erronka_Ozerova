@@ -1,6 +1,13 @@
 import java.util.Scanner;
 
+/**
+ * Programa nagusia
+ */
 public class Main {
+    /**
+     * Logina biltegi aukeraketa eta menua
+     * @param args komando lerroko argumentuak
+     */
     public static void main(String[] args) {
 
         System.out.println("\n--- Gurutze Gorria Biltegia - Sartu zure datuak ---");

@@ -1,3 +1,6 @@
+/**
+ * Produktuen berezitasunak kudeatzeko klasea
+ */
 public class ProduktuenBerezitasunak extends Produktuak {
     private String iraungitzeData;
     private boolean hozteaBeharrezkoa;
@@ -32,18 +35,22 @@ public class ProduktuenBerezitasunak extends Produktuak {
         this.hozteaBeharrezkoa = hozteaBeharrezkoa;
     }
 
+    /** @return iraungitze data */
     public String getIraungitzeData() {
         return iraungitzeData;
     }
 
+    /** @param iraungitzeData iraungitze data berria */
     public void setIraungitzeData(String iraungitzeData) {
         this.iraungitzeData = iraungitzeData;
     }
 
+    /** @return hoztea beharrezkoa den */
     public boolean isHozteaBeharrezkoa() {
         return hozteaBeharrezkoa;
     }
 
+    /** @param hozteaBeharrezkoa hoztea beharrezkoa den berria */
     public void setHozteaBeharrezkoa(boolean hozteaBeharrezkoa) {
         this.hozteaBeharrezkoa = hozteaBeharrezkoa;
     }

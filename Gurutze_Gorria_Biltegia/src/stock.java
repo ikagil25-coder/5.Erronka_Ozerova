@@ -3,6 +3,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * Stock-a kudeatzeko klasea
+ */
 public class Stock {
     private String idBiltegia;
 
@@ -12,6 +15,11 @@ public class Stock {
 
     // --- CRUD METODOAK ---
 
+    /**
+     * Produktua gehitu datu basera
+     * 
+     * @param p produktu objektua
+     */
     public void produktuaGehitu(Produktuak p) {
         String sql = "INSERT INTO Produktuak (id_produktuak, id_biltegia, erreferentzia, izena, fabrikatzailea, kokapen_id, mota) VALUES (?, ?, ?, ?, ?, ?, ?)";
         String sqlStock = "INSERT INTO Stock (id_produktuak, kantitate_totala) VALUES (?, 0)";
@@ -73,6 +81,11 @@ public class Stock {
         }
     }
 
+    /**
+     * Produktua aldatu
+     * 
+     * @param p produktu objektua datu berriekin
+     */
     public void produktuaAldatu(Produktuak p) {
         String sql = "UPDATE Produktuak SET erreferentzia=?, izena=?, fabrikatzailea=?, kokapen_id=?, mota=? WHERE id_produktuak=?";
 
@@ -100,6 +113,11 @@ public class Stock {
         }
     }
 
+    /**
+     * Produktua ezabatu datu basetik
+     * 
+     * @param ezabatuId produktuaren ID-a
+     */
     public void produktuaEzabatu(int ezabatuId) {
         String sql = "UPDATE Stock SET kantitate_totala = 0 WHERE id_produktuak = ?";
 
@@ -122,6 +140,9 @@ public class Stock {
         }
     }
 
+    /**
+     * Produktu guztiak ikusi
+     */
     public void produktuakBistaratu() {
         String sql = "SELECT * FROM PRODUKTUAK";
 
@@ -142,6 +163,9 @@ public class Stock {
 
     // STOCK KONTSULTAK
 
+    /**
+     * Stock gehien duen produktua ikusi
+     */
     public void stockGehienDuenProduktua() {
         String sql = "SELECT p.izena, s.kantitate_totala FROM Produktuak p JOIN Stock s ON p.id_produktuak = s.id_produktuak ORDER BY s.kantitate_totala DESC LIMIT 1";
 
@@ -163,6 +187,9 @@ public class Stock {
         }
     }
 
+    /**
+     * Agortutako produktuak ikusi
+     */
     public void agortutakoProduktuak() {
         String sql = "SELECT p.id_produktuak, p.izena, s.kantitate_totala FROM Produktuak p JOIN Stock s ON p.id_produktuak = s.id_produktuak WHERE s.kantitate_totala = 0";
 
@@ -187,6 +214,9 @@ public class Stock {
         }
     }
 
+    /**
+     * Donaziorik ez duten produktuak ikusi
+     */
     public void donaziorikEzDutenProduktuak() {
         String sql = "SELECT p.id_produktuak, p.izena, p.erreferentzia FROM Produktuak p LEFT JOIN Donazioak d ON p.id_produktuak = d.id_produktuak WHERE d.id_donazioa IS NULL";
 

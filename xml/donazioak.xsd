@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
 
+    <!-- IzenMota definitu: 1-150 karaktere -->
     <xs:simpleType name="IzenMota">
         <xs:restriction base="xs:string">
             <xs:minLength value="1"/>
@@ -8,20 +9,21 @@
         </xs:restriction>
     </xs:simpleType>
 
+    <!-- IFK formatua: Letra bat + 8 digitu -->
     <xs:simpleType name="ifkMota">
         <xs:restriction base="xs:string">
-            <xs:pattern value="[A-Za-z][0-9]{8}"/>
+            <xs:pattern value="[A-Z][0-9]{8}"/>
         </xs:restriction>
     </xs:simpleType>
 
-    <xs:simpleType name="motaMota">
+    <!-- Erreferentzia formatua: IR, EZ edo EI + 5 digitu -->
+    <xs:simpleType name="erreferentziaMota">
         <xs:restriction base="xs:string">
-            <xs:enumeration value="iragankorra"/>
-            <xs:enumeration value="ez iragankorra"/>
-            <xs:enumeration value="erdi iragankorra"/>
+            <xs:pattern value="(IR|EZ|EI)[0-9]{5}"/>
         </xs:restriction>
     </xs:simpleType>
 
+    <!-- Bai/Ez mota -->
     <xs:simpleType name="baiEzMota">
         <xs:restriction base="xs:string">
             <xs:enumeration value="BAI"/>
@@ -29,9 +31,12 @@
         </xs:restriction>
     </xs:simpleType>
 
-    <xs:simpleType name="erreferentziaMota">
+    <!-- Elikagai mota -->
+    <xs:simpleType name="motaMota">
         <xs:restriction base="xs:string">
-            <xs:pattern value="(IR|EZ|EI)[0-9]{5}"/>
+            <xs:enumeration value="iragankorra"/>
+            <xs:enumeration value="ez iragankorra"/>
+            <xs:enumeration value="erdi iragankorra"/>
         </xs:restriction>
     </xs:simpleType>
 
@@ -45,7 +50,7 @@
                                 <xs:complexType>
                                     <xs:sequence>
                                         <xs:element name="ifk" type="ifkMota"/>
-                                        <xs:element name="izena" type="IzenMota"/>
+                                        <xs:element name="enpresaren_izena" type="IzenMota"/>
                                     </xs:sequence>
                                 </xs:complexType>
                             </xs:element>
@@ -56,15 +61,17 @@
                                         <xs:element name="elikagaia" maxOccurs="unbounded">
                                             <xs:complexType>
                                                 <xs:sequence>
-                                                    <xs:element name="mota" type="motaMota"/>
                                                     <xs:element name="erreferentzia" type="erreferentziaMota"/>
-                                                    <xs:element name="produktu_izena" type="IzenMota"/>
+                                                    <xs:element name="produktuaren_izena" type="IzenMota"/>
                                                     <xs:element name="kopurua" type="xs:positiveInteger"/>
-                                                    <xs:element name="ekoizlea" type="IzenMota"/>
+                                                    <xs:element name="manufakturatzen_duen_enpresa" type="IzenMota"/>
+                                                    <!-- Hautazkoak elikagai motaren arabera -->
                                                     <xs:element name="iraungitze_data" type="xs:date" minOccurs="0"/>
                                                     <xs:element name="hoztuta_mantendu" type="baiEzMota" minOccurs="0"/>
                                                     <xs:element name="kontserba" type="baiEzMota" minOccurs="0"/>
                                                 </xs:sequence>
+                                                <!-- Mota atributu gisa -->
+                                                <xs:attribute name="mota" type="motaMota" use="required"/>
                                             </xs:complexType>
                                         </xs:element>
                                     </xs:sequence>

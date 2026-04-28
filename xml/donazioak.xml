@@ -4,16 +4,15 @@
     <donazioa>
         <enpresa_emailea>
             <ifk>A12345678</ifk>
-            <izena>Esnekiak Araba S.L.</izena>
+            <enpresaren_izena>Esnekiak Araba S.L.</enpresaren_izena>
         </enpresa_emailea>
         <data>2026-03-20</data>
         <elikagaiak>
-            <elikagaia>
-                <mota>iragankorra</mota>
+            <elikagaia mota="iragankorra">
                 <erreferentzia>IR10293</erreferentzia>
-                <produktu_izena>Behi esne osoa</produktu_izena>
+                <produktuaren_izena>Behi esne osoa</produktuaren_izena>
                 <kopurua>500</kopurua>
-                <ekoizlea>Iparraldeko Esnekiak</ekoizlea>
+                <manufakturatzen_duen_enpresa>Iparraldeko Esnekiak</manufakturatzen_duen_enpresa>
                 <iraungitze_data>2026-04-15</iraungitze_data>
                 <hoztuta_mantendu>BAI</hoztuta_mantendu>
             </elikagaia>
@@ -23,16 +22,15 @@
     <donazioa>
         <enpresa_emailea>
             <ifk>B98765432</ifk>
-            <izena>Gure Laborea Taldea</izena>
+            <enpresaren_izena>Gure Laborea Taldea</enpresaren_izena>
         </enpresa_emailea>
         <data>2026-03-21</data>
         <elikagaiak>
-            <elikagaia>
-                <mota>ez iragankorra</mota>
+            <elikagaia mota="ez iragankorra">
                 <erreferentzia>EZ55443</erreferentzia>
-                <produktu_izena>Arroz borobila 1kg</produktu_izena>
+                <produktuaren_izena>Arroz borobila 1kg</produktuaren_izena>
                 <kopurua>1200</kopurua>
-                <ekoizlea>Erriberako Arroz-soroak</ekoizlea>
+                <manufakturatzen_duen_enpresa>Erriberako Arroz-soroak</manufakturatzen_duen_enpresa>
                 <kontserba>EZ</kontserba>
             </elikagaia>
         </elikagaiak>
@@ -41,16 +39,15 @@
     <donazioa>
         <enpresa_emailea>
             <ifk>C45678901</ifk>
-            <izena>Baratze Berria Koop.</izena>
+            <enpresaren_izena>Baratze Berria Koop.</enpresaren_izena>
         </enpresa_emailea>
         <data>2026-03-22</data>
         <elikagaiak>
-            <elikagaia>
-                <mota>erdi iragankorra</mota>
+            <elikagaia mota="erdi iragankorra">
                 <erreferentzia>EI88127</erreferentzia>
-                <produktu_izena>Patata poltsa 5kg</produktu_izena>
+                <produktuaren_izena>Patata poltsa 5kg</produktuaren_izena>
                 <kopurua>300</kopurua>
-                <ekoizlea>Nekazari Elkartea</ekoizlea>
+                <manufakturatzen_duen_enpresa>Nekazari Elkartea</manufakturatzen_duen_enpresa>
             </elikagaia>
         </elikagaiak>
     </donazioa>

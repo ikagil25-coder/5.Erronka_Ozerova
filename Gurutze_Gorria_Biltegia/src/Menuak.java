@@ -36,7 +36,8 @@ public class Menuak {
                 default:
                     System.out.println("Zenbaki okerra, saiatu berriro.");
                     break;
-            }
+                  
+            }  sc.close();
         }
     }
 
@@ -141,7 +142,7 @@ public class Menuak {
                     System.out.println("Sartu duzun zenbakia ez da zuzena, saiatu berriro.");
                     break;
             }
-        }
+        }sc.close();
     }
 
     /**
@@ -362,6 +363,6 @@ public class Menuak {
                     System.out.println("Sartu duzun zenbakia ez da zuzena, saiatu berriro.");
                     break;
             }
-        }
+        }sc.close();
     }
 }

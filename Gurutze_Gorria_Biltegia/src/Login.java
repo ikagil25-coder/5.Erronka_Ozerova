@@ -33,7 +33,7 @@ public class Login {
                     rolObtenido = rs.getString("deskribapena");
                 }
             }
-
+sc.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }

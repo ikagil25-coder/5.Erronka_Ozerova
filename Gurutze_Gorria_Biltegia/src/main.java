@@ -42,6 +42,6 @@ public class Main {
             default:
                 System.out.println("Rola ez da zuzena.");
                 break;
-        }
+        }sc.close();
     }
 }

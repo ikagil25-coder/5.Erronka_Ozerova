@@ -1,5 +1,6 @@
 {
     "java.project.referencedLibraries": [
-        "Gurutze_Gorria_Biltegia/lib/**/*.jar"
+        "Gurutze_Gorria_Biltegia/lib/**/*.jar",
+        "test-lib\\**\\*.jar"
     ]
 }

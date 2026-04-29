@@ -1,5 +1,5 @@
+import java.sql.CallableStatement;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Scanner;
@@ -19,18 +19,16 @@ public class Login {
         System.out.println("Kaixo, sartu pasahitza:");
         String pasahitza = sc.nextLine();
 
-   
-
-        String sql = "SELECT r.deskribapena FROM Erabiltzaileak e JOIN Rola r ON e.id_rola = r.id_rola WHERE e.izena = ? AND e.pasahitza = ?";
+        String sql = "{CALL logina(?, ?)}";
         String rolObtenido = null;
 
         try (Connection conn = Konexioa.konektatu();
-                PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                CallableStatement cstmt = conn.prepareCall(sql)) {
 
-            pstmt.setString(1, erabiltzailea);
-            pstmt.setString(2, pasahitza);
+            cstmt.setString(1, erabiltzailea);
+            cstmt.setString(2, pasahitza);
 
-            try (ResultSet rs = pstmt.executeQuery()) {
+            try (ResultSet rs = cstmt.executeQuery()) {
                 if (rs.next()) {
                     rolObtenido = rs.getString("deskribapena");
                 }

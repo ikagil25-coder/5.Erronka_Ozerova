@@ -1,5 +1,5 @@
+import java.sql.CallableStatement;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -21,62 +21,24 @@ public class Stock {
      * @param p produktu objektua
      */
     public void produktuaGehitu(Produktuak p) {
-        String sql = "INSERT INTO Produktuak (id_produktuak, id_biltegia, erreferentzia, izena, fabrikatzailea, kokapen_id, mota) VALUES (?, ?, ?, ?, ?, ?, ?)";
-        String sqlStock = "INSERT INTO Stock (id_produktuak, kantitate_totala) VALUES (?, 0)";
+        String sql = "{CALL produktuaGehitu(?, ?, ?, ?, ?, ?, ?)}";
 
         try (Connection conn = Konexioa.konektatu();
-                PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                CallableStatement cstmt = conn.prepareCall(sql)) {
 
-            pstmt.setInt(1, p.getProduktu_id());
-            pstmt.setString(2, this.idBiltegia);
-            pstmt.setString(3, p.getErreferentzia());
-            pstmt.setString(4, p.getIzena());
-            pstmt.setString(5, p.getFabrikatzailea());
-            pstmt.setInt(6, p.getKokapen_id());
-            pstmt.setInt(7, p.getMota());
+            cstmt.setInt(1, p.getProduktu_id());
+            cstmt.setString(2, this.idBiltegia);
+            cstmt.setString(3, p.getErreferentzia());
+            cstmt.setString(4, p.getIzena());
+            cstmt.setString(5, p.getFabrikatzailea());
+            cstmt.setInt(6, p.getKokapen_id());
+            cstmt.setInt(7, p.getMota());
 
-            pstmt.executeUpdate();
-
-            if (p instanceof Iragankorra) {
-                Iragankorra ira = (Iragankorra) p;
-
-                String sqlIragankorra = "INSERT INTO Iragankorrak (id_produktuak, iraungitze_data, hoztea) VALUES (?,?,?)";
-                try (PreparedStatement psIra = conn.prepareStatement(sqlIragankorra)) {
-                    psIra.setInt(1, p.getProduktu_id());
-                    psIra.setString(2, ira.getIraungitzeData());
-                    psIra.setBoolean(3, ira.isHozteaBeharrezkoa());
-                    psIra.executeUpdate();
-                }
-            } else if (p instanceof ErdiIragankorra) {
-                ErdiIragankorra erdi = (ErdiIragankorra) p;
-
-                String sqlErdiIragankorra = "INSERT INTO Erdi_Iragankorrak(id_produktuak, iraungitze_data, hoztea, hezetasuna) VALUES (?,?,?,?)";
-                try (PreparedStatement psErdi = conn.prepareStatement(sqlErdiIragankorra)) {
-                    psErdi.setInt(1, p.getProduktu_id());
-                    psErdi.setString(2, erdi.getIraungitzeData());
-                    psErdi.setBoolean(3, erdi.isHozteaBeharrezkoa());
-                    psErdi.setDouble(4, erdi.getHezetasunMaximoa());
-                    psErdi.executeUpdate();
-                }
-            } else if (p instanceof EzIragankorra) {
-                EzIragankorra ezira = (EzIragankorra) p;
-                String sqlEzIragankorra = "INSERT INTO Ez_Iragankorrak(id_produktuak, kontserba) VALUES (?,?)";
-                try (PreparedStatement psEz = conn.prepareStatement(sqlEzIragankorra)) {
-                    psEz.setInt(1, p.getProduktu_id());
-                    psEz.setBoolean(2, ezira.isKontserba());
-                    psEz.executeUpdate();
-                }
-            }
-
-            try (PreparedStatement psStock = conn.prepareStatement(sqlStock)) {
-                psStock.setInt(1, p.getProduktu_id());
-                psStock.executeUpdate();
-            }
-
+            cstmt.execute();
             System.out.println("Produktua ondo gorde da datu basean!");
 
         } catch (SQLException e) {
-            System.out.println("Errorea produktua gordetzean datu-basean...");
+            System.out.println("Errorea produktua gordetzean...");
             e.printStackTrace();
         }
     }
@@ -87,19 +49,19 @@ public class Stock {
      * @param p produktu objektua datu berriekin
      */
     public void produktuaAldatu(Produktuak p) {
-        String sql = "UPDATE Produktuak SET erreferentzia=?, izena=?, fabrikatzailea=?, kokapen_id=?, mota=? WHERE id_produktuak=?";
+        String sql = "{CALL produktuaAldatu(?, ?, ?, ?, ?, ?)}";
 
         try (Connection conn = Konexioa.konektatu();
-                PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                CallableStatement cstmt = conn.prepareCall(sql)) {
 
-            pstmt.setString(1, p.getErreferentzia());
-            pstmt.setString(2, p.getIzena());
-            pstmt.setString(3, p.getFabrikatzailea());
-            pstmt.setInt(4, p.getKokapen_id());
-            pstmt.setInt(5, p.getMota());
-            pstmt.setInt(6, p.getProduktu_id());
+            cstmt.setString(1, p.getErreferentzia());
+            cstmt.setString(2, p.getIzena());
+            cstmt.setString(3, p.getFabrikatzailea());
+            cstmt.setInt(4, p.getKokapen_id());
+            cstmt.setInt(5, p.getMota());
+            cstmt.setInt(6, p.getProduktu_id());
 
-            int eguneratuta = pstmt.executeUpdate();
+            int eguneratuta = cstmt.executeUpdate();
 
             if (eguneratuta > 0) {
                 System.out.println("Produktua ondo aldatu da!");
@@ -108,7 +70,7 @@ public class Stock {
             }
 
         } catch (SQLException e) {
-            System.out.println("Errorea produktua aldatzean datu-basean...");
+            System.out.println("Errorea produktua aldatzean...");
             e.printStackTrace();
         }
     }
@@ -119,23 +81,22 @@ public class Stock {
      * @param ezabatuId produktuaren ID-a
      */
     public void produktuaEzabatu(int ezabatuId) {
-        String sql = "UPDATE Stock SET kantitate_totala = 0 WHERE id_produktuak = ?";
+        String sql = "{CALL produktuaEzabatu(?)}";
 
         try (Connection conn = Konexioa.konektatu();
-                PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                CallableStatement cstmt = conn.prepareCall(sql)) {
 
-            pstmt.setInt(1, ezabatuId);
-
-            int ezabatuta = pstmt.executeUpdate();
+            cstmt.setInt(1, ezabatuId);
+            int ezabatuta = cstmt.executeUpdate();
 
             if (ezabatuta > 0) {
                 System.out.println("Produktuaren stock-a ondo ezabatu da (0-ra pasatu da)!");
             } else {
-                System.out.println("Ez da produkturik aurkitu ID horrekin Stock taulan.");
+                System.out.println("Ez da produkturik aurkitu ID horrekin.");
             }
 
         } catch (SQLException e) {
-            System.out.println("Errorea produktuaren stocka ezabatzean datu-basean...");
+            System.out.println("Errorea produktuaren stocka ezabatzean...");
             e.printStackTrace();
         }
     }
@@ -144,11 +105,11 @@ public class Stock {
      * Produktu guztiak ikusi
      */
     public void produktuakBistaratu() {
-        String sql = "SELECT * FROM PRODUKTUAK";
+        String sql = "{CALL produktuakBistaratu()}";
 
         try (Connection conn = Konexioa.konektatu();
-                PreparedStatement pstmt = conn.prepareStatement(sql);
-                ResultSet rs = pstmt.executeQuery()) {
+                CallableStatement cstmt = conn.prepareCall(sql);
+                ResultSet rs = cstmt.executeQuery()) {
 
             System.out.println("--- Datu basean dauden produktuak ---");
             while (rs.next()) {
@@ -156,7 +117,7 @@ public class Stock {
             }
 
         } catch (SQLException e) {
-            System.out.println("Errorea...");
+            System.out.println("Errorea bistaratzean...");
             e.printStackTrace();
         }
     }
@@ -167,11 +128,11 @@ public class Stock {
      * Stock gehien duen produktua ikusi
      */
     public void stockGehienDuenProduktua() {
-        String sql = "SELECT p.izena, s.kantitate_totala FROM Produktuak p JOIN Stock s ON p.id_produktuak = s.id_produktuak ORDER BY s.kantitate_totala DESC LIMIT 1";
+        String sql = "{CALL stockGehienDuenProduktua()}";
 
         try (Connection conn = Konexioa.konektatu();
-                PreparedStatement pstmt = conn.prepareStatement(sql);
-                ResultSet rs = pstmt.executeQuery()) {
+                CallableStatement cstmt = conn.prepareCall(sql);
+                ResultSet rs = cstmt.executeQuery()) {
 
             if (rs.next()) {
                 String izena = rs.getString("izena");
@@ -191,11 +152,11 @@ public class Stock {
      * Agortutako produktuak ikusi
      */
     public void agortutakoProduktuak() {
-        String sql = "SELECT p.id_produktuak, p.izena, s.kantitate_totala FROM Produktuak p JOIN Stock s ON p.id_produktuak = s.id_produktuak WHERE s.kantitate_totala = 0";
+        String sql = "{CALL agortutakoProduktuak()}";
 
         try (Connection conn = Konexioa.konektatu();
-                PreparedStatement pstmt = conn.prepareStatement(sql);
-                ResultSet rs = pstmt.executeQuery()) {
+                CallableStatement cstmt = conn.prepareCall(sql);
+                ResultSet rs = cstmt.executeQuery()) {
 
             System.out.println("--- Agortutako Produktuak ---");
             boolean badago = false;
@@ -209,7 +170,7 @@ public class Stock {
                 System.out.println("Ez dago agortutako produkturik.");
 
         } catch (SQLException e) {
-            System.out.println("Errorea stock ez duten produktuak lortzean...");
+            System.out.println("Errorea agortutako produktuak lortzean...");
             e.printStackTrace();
         }
     }
@@ -218,11 +179,11 @@ public class Stock {
      * Donaziorik ez duten produktuak ikusi
      */
     public void donaziorikEzDutenProduktuak() {
-        String sql = "SELECT p.id_produktuak, p.izena, p.erreferentzia FROM Produktuak p LEFT JOIN Donazioak d ON p.id_produktuak = d.id_produktuak WHERE d.id_donazioa IS NULL";
+        String sql = "{CALL donaziorikEzDutenProduktuak()}";
 
         try (Connection conn = Konexioa.konektatu();
-                PreparedStatement pstmt = conn.prepareStatement(sql);
-                ResultSet rs = pstmt.executeQuery()) {
+                CallableStatement cstmt = conn.prepareCall(sql);
+                ResultSet rs = cstmt.executeQuery()) {
 
             System.out.println("--- Donaziorik ez duten produktuak ---");
             boolean badago = false;

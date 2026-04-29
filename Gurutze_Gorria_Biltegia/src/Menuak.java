@@ -7,6 +7,7 @@ public class Menuak {
 
     /**
      * Admin menua
+     * 
      * @param biltegiKodea biltegiaren kodea
      */
     public static void erakutsiAdminMenua(String biltegiKodea) {
@@ -42,6 +43,7 @@ public class Menuak {
 
     /**
      * Kudeatzaile menua
+     * 
      * @param biltegiKodea biltegiaren kodea
      */
     public static void erakutsiSarreraIrteeraMenua(String biltegiKodea) {
@@ -50,7 +52,7 @@ public class Menuak {
         boolean irten = false;
 
         while (!irten) {
-            
+
             System.out.println("\n---  KUDEATZAILEA ---");
             System.out.println("1. Sarrera berria sortu");
             System.out.println("2. Irteera berria sortu");
@@ -92,7 +94,6 @@ public class Menuak {
                     System.out.println("Nora bidaliko dira? (Helmuga)");
                     String helmuga = sc.nextLine();
 
-                    
                     kudeaketa.irteeraErregistratu(irteeraId, irteeraKantitatea, helmuga);
                     break;
 
@@ -103,9 +104,11 @@ public class Menuak {
                 case "4":
                     System.out.println("Idatzi aldatu nahi duzun sarreraren ID-a:");
                     int sAldatuId = Integer.parseInt(sc.nextLine());
+                    System.out.println("Idatzi kantitate berria:");
+                    int sKantBerria = Integer.parseInt(sc.nextLine());
                     System.out.println("Idatzi donatzaile berria:");
                     String donBerria = sc.nextLine();
-                    kudeaketa.sarreraAldatu(sAldatuId, donBerria);
+                    kudeaketa.sarreraAldatu(sAldatuId, sKantBerria, donBerria);
                     break;
 
                 case "5":
@@ -121,9 +124,11 @@ public class Menuak {
                 case "7":
                     System.out.println("Idatzi aldatu nahi duzun irteeraren ID-a:");
                     int iAldatuId = Integer.parseInt(sc.nextLine());
+                    System.out.println("Idatzi kantitate berria:");
+                    int iKantBerria = Integer.parseInt(sc.nextLine());
                     System.out.println("Idatzi helmuga berria:");
                     String helBerria = sc.nextLine();
-                    kudeaketa.irteeraAldatu(iAldatuId, helBerria);
+                    kudeaketa.irteeraAldatu(iAldatuId, iKantBerria, helBerria);
                     break;
 
                 case "8":
@@ -146,6 +151,7 @@ public class Menuak {
 
     /**
      * Stock menua
+     * 
      * @param biltegiKodea biltegiaren kodea
      */
     public static void erakutsiStockMenua(String biltegiKodea) {
@@ -193,7 +199,6 @@ public class Menuak {
                             System.out.println("Produktuaren sorkuntza bertan behera utzi da. Saiatu berriro.");
                             break;
                         }
-                       
 
                         System.out.println("Idatzi produktuaren fabrikatzailea");
                         p.setFabrikatzailea(sc.nextLine());
@@ -203,57 +208,53 @@ public class Menuak {
 
                         System.out.println("Idatzi produktuaren kokapen ID-a (Zenbakia):");
                         p.setKokapen_id(Integer.parseInt(sc.nextLine()));
-                        
+
                         System.out.println("Idatzi produktu mota (1-Iragankorra, 2-Erdi, 3-Ez):");
-                     int mota= Integer.parseInt(sc.nextLine());
+                        int mota = Integer.parseInt(sc.nextLine());
 
+                        if (mota == 1) {
+                            System.out.println("Idatzi iraugitze data (mm/dd/yyyy):");
+                            String iraungitzeData = sc.nextLine();
 
-                     if (mota==1) {
-                        System.out.println("Idatzi iraugitze data (mm/dd/yyyy):");
-                        String iraungitzeData = sc.nextLine();
+                            System.out.println("Behar du hoztea?(true/false)");
+                            boolean hoztea = Boolean.parseBoolean(sc.nextLine());
 
-                        System.out.println("Behar du hoztea?(true/false)");
-                        boolean hoztea=Boolean.parseBoolean(sc.nextLine());
+                            p = new Iragankorra(
+                                    p.getProduktu_id(), p.getErreferentzia(), p.getIzena(), p.getFabrikatzailea(),
+                                    p.getPasilo_zbk(), p.getKokapen_id(), p.getMota(),
+                                    iraungitzeData, hoztea);
+                        } else if (mota == 2) {
+                            System.out.println("Idatzi iraugitze data (mm/dd/yyyy):");
+                            String iraungitzeData = sc.nextLine();
 
+                            System.out.println("Behar du hoztea?(true/false)");
+                            boolean hoztea = Boolean.parseBoolean(sc.nextLine());
+                            System.out.println("Idatzi hezetasun maximoa ");
+                            double hezetasuna = Double.parseDouble(sc.nextLine());
 
-                        p = new Iragankorra(
-                            p.getProduktu_id(), p.getErreferentzia(), p.getIzena(), p.getFabrikatzailea(),
-                            p.getPasilo_zbk(), p.getKokapen_id(), p.getMota(),
-                            iraungitzeData, hoztea
-                        );
-                     }else if (mota==2) {
-                       System.out.println("Idatzi iraugitze data (mm/dd/yyyy):");
-                        String iraungitzeData = sc.nextLine();
+                            p = new ErdiIragankorra(p.getProduktu_id(),
+                                    p.getErreferentzia(),
+                                    p.getIzena(),
+                                    p.getFabrikatzailea(),
+                                    p.getPasilo_zbk(),
+                                    p.getKokapen_id(),
+                                    p.getMota(),
+                                    iraungitzeData,
+                                    hoztea,
+                                    hezetasuna);
+                        } else if (mota == 3) {
+                            System.out.println("Produktua kontserba bat da?(true/false)");
+                            boolean kontserba = Boolean.parseBoolean(sc.nextLine());
 
-                        System.out.println("Behar du hoztea?(true/false)");
-                        boolean hoztea=Boolean.parseBoolean(sc.nextLine());
-                        System.out.println("Idatzi hezetasun maximoa ");
-                        double hezetasuna=Double.parseDouble(sc.nextLine());
-
-
-                        p = new ErdiIragankorra(p.getProduktu_id(),
-                         p.getErreferentzia(),
-                          p.getIzena(),
-                           p.getFabrikatzailea(),
-                            p.getPasilo_zbk(),
-                             p.getKokapen_id(),
-                              p.getMota(),
-                               iraungitzeData,
-                                hoztea,
-                                 hezetasuna);
-                     }else if(mota==3){
-                        System.out.println("Produktua kontserba bat da?(true/false)");
-                        boolean kontserba=Boolean.parseBoolean(sc.nextLine());
-
-                        p=new EzIragankorra(p.getProduktu_id(),
-                         p.getErreferentzia(),
-                          p.getIzena(),
-                           p.getFabrikatzailea(),
-                            p.getPasilo_zbk(),
-                             p.getKokapen_id(),
-                              p.getMota(),
-                               kontserba);
-                     }
+                            p = new EzIragankorra(p.getProduktu_id(),
+                                    p.getErreferentzia(),
+                                    p.getIzena(),
+                                    p.getFabrikatzailea(),
+                                    p.getPasilo_zbk(),
+                                    p.getKokapen_id(),
+                                    p.getMota(),
+                                    kontserba);
+                        }
 
                         nireStock.produktuaGehitu(p);
                     }
@@ -271,13 +272,12 @@ public class Menuak {
                     String izenBerria = sc.nextLine();
                     pAldatu.setIzena(izenBerria);
 
-                   
                     try {
                         System.out.println("Idatzi erreferentzia berria (Adib: IR12345, ER12345, EZ12345):");
                         String errBerria = sc.nextLine().toUpperCase();
-                        
+
                         if (!errBerria.matches("^(IR|ER|EZ)\\d{5}$")) {
-                           throw new Exception("Erreferentziaren formatua ez da zuzena (IR-EZ-ER + 5 zenbaki)"); 
+                            throw new Exception("Erreferentziaren formatua ez da zuzena (IR-EZ-ER + 5 zenbaki)");
                         }
                         pAldatu.setErreferentzia(errBerria);
                     } catch (Exception e) {
@@ -296,7 +296,7 @@ public class Menuak {
 
                     System.out.println("Idatzi mota berria (1-Iragankorra, 2-Erdi, 3-Ez):");
                     int motaBerria = Integer.parseInt(sc.nextLine());
-                    
+
                     if (motaBerria == 1) {
                         System.out.println("Idatzi iraugitze data (mm/dd/yyyy):");
                         String iraungitzeData = sc.nextLine();
@@ -304,10 +304,10 @@ public class Menuak {
                         boolean hoztea = Boolean.parseBoolean(sc.nextLine());
 
                         pAldatu = new Iragankorra(
-                            pAldatu.getProduktu_id(), pAldatu.getErreferentzia(), pAldatu.getIzena(), 
-                            pAldatu.getFabrikatzailea(), pAldatu.getPasilo_zbk(), pAldatu.getKokapen_id(), motaBerria,
-                            iraungitzeData, hoztea
-                        );
+                                pAldatu.getProduktu_id(), pAldatu.getErreferentzia(), pAldatu.getIzena(),
+                                pAldatu.getFabrikatzailea(), pAldatu.getPasilo_zbk(), pAldatu.getKokapen_id(),
+                                motaBerria,
+                                iraungitzeData, hoztea);
                     } else if (motaBerria == 2) {
                         System.out.println("Idatzi iraugitze data (mm/dd/yyyy):");
                         String iraungitzeData = sc.nextLine();
@@ -317,19 +317,19 @@ public class Menuak {
                         double hezetasuna = Double.parseDouble(sc.nextLine());
 
                         pAldatu = new ErdiIragankorra(
-                            pAldatu.getProduktu_id(), pAldatu.getErreferentzia(), pAldatu.getIzena(), 
-                            pAldatu.getFabrikatzailea(), pAldatu.getPasilo_zbk(), pAldatu.getKokapen_id(), motaBerria,
-                            iraungitzeData, hoztea, hezetasuna
-                        );
+                                pAldatu.getProduktu_id(), pAldatu.getErreferentzia(), pAldatu.getIzena(),
+                                pAldatu.getFabrikatzailea(), pAldatu.getPasilo_zbk(), pAldatu.getKokapen_id(),
+                                motaBerria,
+                                iraungitzeData, hoztea, hezetasuna);
                     } else if (motaBerria == 3) {
                         System.out.println("Produktua kontserba bat da?(true/false)");
                         boolean kontserba = Boolean.parseBoolean(sc.nextLine());
 
                         pAldatu = new EzIragankorra(
-                            pAldatu.getProduktu_id(), pAldatu.getErreferentzia(), pAldatu.getIzena(), 
-                            pAldatu.getFabrikatzailea(), pAldatu.getPasilo_zbk(), pAldatu.getKokapen_id(), motaBerria,
-                            kontserba
-                        );
+                                pAldatu.getProduktu_id(), pAldatu.getErreferentzia(), pAldatu.getIzena(),
+                                pAldatu.getFabrikatzailea(), pAldatu.getPasilo_zbk(), pAldatu.getKokapen_id(),
+                                motaBerria,
+                                kontserba);
                     } else {
                         pAldatu.setMota(motaBerria);
                     }

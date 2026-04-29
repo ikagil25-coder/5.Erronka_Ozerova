@@ -1,5 +1,5 @@
+import java.sql.CallableStatement;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -23,32 +23,19 @@ public class SarrerakEtaIrteerak {
      * @param nanDonatzailea donatzailearen NAN-a
      */
     public void sarreraErregistratu(int pId, int kantitatea, String donatzailea, String nanDonatzailea) {
-        String sqlSarrera = "INSERT INTO Sarrerak (id_produktuak, data, kantitatea, donatzailea) VALUES (?, CURDATE(), ?, ?)";
-        String sqlDonazioa = "INSERT INTO Donazioak (id_produktuak, nan_donatzailea, kantitatea, data) VALUES (?, ?, ?, CURDATE())";
-        String sqlStock = "UPDATE Stock SET kantitate_totala = kantitate_totala + ? WHERE id_produktuak = ?";
+        String sql = "{CALL sarreraErregistratu(?, ?, ?, ?)}";
 
-        try (Connection conn = Konexioa.konektatu()) {
-            try (PreparedStatement psSarrera = conn.prepareStatement(sqlSarrera);
-                 PreparedStatement psDonazioa = conn.prepareStatement(sqlDonazioa);
-                 PreparedStatement psStock = conn.prepareStatement(sqlStock)) {
+        try (Connection conn = Konexioa.konektatu();
+             CallableStatement cstmt = conn.prepareCall(sql)) {
 
-                psSarrera.setInt(1, pId);
-                psSarrera.setInt(2, kantitatea);
-                psSarrera.setString(3, donatzailea);
-                psSarrera.executeUpdate();
+            cstmt.setInt(1, pId);
+            cstmt.setInt(2, kantitatea);
+            cstmt.setString(3, donatzailea);
+            cstmt.setString(4, nanDonatzailea);
+            cstmt.execute();
 
-                psDonazioa.setInt(1, pId);
-                psDonazioa.setString(2, nanDonatzailea);
-                psDonazioa.setInt(3, kantitatea);
-                psDonazioa.executeUpdate();
+            System.out.println("Sarrera ondo erregistratu da!");
 
-                psStock.setInt(1, kantitatea);
-                psStock.setInt(2, pId);
-                psStock.executeUpdate();
-
-                System.out.println("Sarrera ondo erregistratu da, donazioa gorde da eta stock-a eguneratu da.");
-
-            }
         } catch (SQLException e) {
             System.out.println("Errorea sarrera egiterakoan...");
             e.printStackTrace();
@@ -62,45 +49,22 @@ public class SarrerakEtaIrteerak {
      * @param helmuga nora bidaltzen den
      */
     public void irteeraErregistratu(int pId, int kantitatea, String helmuga) {
-        String sqlStockCheck = "SELECT kantitate_totala FROM Stock WHERE id_produktuak = ?";
-        String sqlIrteera = "INSERT INTO Irteerak (id_produktuak, kantitatea, helmuga, data) VALUES (?, ?, ?, CURDATE())";
-        String sqlStockUpdate = "UPDATE Stock SET kantitate_totala = kantitate_totala - ? WHERE id_produktuak = ?";
+        String sql = "{CALL irteeraErregistratu(?, ?, ?)}";
 
-        try (Connection conn = Konexioa.konektatu()) {
+        try (Connection conn = Konexioa.konektatu();
+             CallableStatement cstmt = conn.prepareCall(sql)) {
 
-            try (PreparedStatement psCheck = conn.prepareStatement(sqlStockCheck)) {
-                psCheck.setInt(1, pId);
-                ResultSet rs = psCheck.executeQuery();
+            cstmt.setInt(1, pId);
+            cstmt.setInt(2, kantitatea);
+            cstmt.setString(3, helmuga);
+            
+            // El procedimiento ya comprueba el stock y devuelve un error si falla
+            cstmt.execute();
+            System.out.println("Irteera ondo erregistratu da.");
 
-                if (rs.next()) {
-                    int unekoStocka = rs.getInt("kantitate_totala");
-                    if (unekoStocka < kantitatea) {
-                        System.out.println("ERROREA: Ez dago nahikoa stock (Unean: " + unekoStocka + ")");
-                        return;
-                    }
-                } else {
-                    System.out.println("ERROREA: Produktua ez da stock-ean aurkitu.");
-                    return;
-                }
-            }
-
-            try (PreparedStatement psIrteera = conn.prepareStatement(sqlIrteera);
-                 PreparedStatement psStock = conn.prepareStatement(sqlStockUpdate)) {
-                psIrteera.setInt(1, pId);
-                psIrteera.setInt(2, kantitatea);
-                psIrteera.setString(3, helmuga);
-                psIrteera.executeUpdate();
-
-                psStock.setInt(1, kantitatea);
-                psStock.setInt(2, pId);
-                psStock.executeUpdate();
-
-                System.out.println("Irteera ondo erregistratu da.");
-
-            }
         } catch (SQLException e) {
-            System.out.println("Errorea irteera egiterakoan...");
-            e.printStackTrace();
+            // Capturamos el mensaje de error personalizado del procedimiento (SIGNAL)
+            System.out.println(e.getMessage());
         }
     }
 
@@ -109,10 +73,10 @@ public class SarrerakEtaIrteerak {
      * Sarrera guztiak bistaratu
      */
     public void sarrerakBistaratu() {
-        String sql = "SELECT * FROM Sarrerak";
+        String sql = "{CALL sarrerakBistaratu()}";
         try (Connection conn = Konexioa.konektatu();
-             PreparedStatement pstmt = conn.prepareStatement(sql);
-             ResultSet rs = pstmt.executeQuery()) {
+             CallableStatement cstmt = conn.prepareCall(sql);
+             ResultSet rs = cstmt.executeQuery()) {
             System.out.println("\n--- SARRERAK ---");
             while (rs.next()) {
                 System.out.println("ID Sarrera: " + rs.getInt("id_sarrera") + 
@@ -130,10 +94,10 @@ public class SarrerakEtaIrteerak {
      * Irteera guztiak bistaratu
      */
     public void irteerakBistaratu() {
-        String sql = "SELECT * FROM Irteerak";
+        String sql = "{CALL irteerakBistaratu()}";
         try (Connection conn = Konexioa.konektatu();
-             PreparedStatement pstmt = conn.prepareStatement(sql);
-             ResultSet rs = pstmt.executeQuery()) {
+             CallableStatement cstmt = conn.prepareCall(sql);
+             ResultSet rs = cstmt.executeQuery()) {
             System.out.println("\n--- IRTEERAK ---");
             while (rs.next()) {
                 System.out.println("ID Irteera: " + rs.getInt("id_irteera") + 
@@ -151,16 +115,18 @@ public class SarrerakEtaIrteerak {
     /**
      * Sarrerak editatu
      * @param idSarrera sarreraren ID-a
+     * @param kantitateBerria kantitate berria
      * @param donatzaileBerria donatzaile berriaren izena
      */
-    public void sarreraAldatu(int idSarrera, String donatzaileBerria) {
-        String sql = "UPDATE Sarrerak SET donatzailea = ? WHERE id_sarrera = ?";
+    public void sarreraAldatu(int idSarrera, int kantitateBerria, String donatzaileBerria) {
+        String sql = "{CALL sarreraAldatu(?, ?, ?)}";
         try (Connection conn = Konexioa.konektatu();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setString(1, donatzaileBerria);
-            pstmt.setInt(2, idSarrera);
-            pstmt.executeUpdate();
-            System.out.println("Sarreraren donatzailea aldatu da!");
+             CallableStatement cstmt = conn.prepareCall(sql)) {
+            cstmt.setInt(1, idSarrera);
+            cstmt.setInt(2, kantitateBerria);
+            cstmt.setString(3, donatzaileBerria);
+            cstmt.executeUpdate();
+            System.out.println("Sarrera aldatu da!");
         } catch (SQLException e) {
             System.out.println("Errorea sarrera aldatzean...");
         }
@@ -169,16 +135,18 @@ public class SarrerakEtaIrteerak {
     /**
      * Irteerak aldatu
      * @param idIrteera irteeraren ID-a
+     * @param kantitateBerria kantitate berria
      * @param helmugaBerria helmuga berria
      */
-    public void irteeraAldatu(int idIrteera, String helmugaBerria) {
-        String sql = "UPDATE Irteerak SET helmuga = ? WHERE id_irteera = ?";
+    public void irteeraAldatu(int idIrteera, int kantitateBerria, String helmugaBerria) {
+        String sql = "{CALL irteeraAldatu(?, ?, ?)}";
         try (Connection conn = Konexioa.konektatu();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setString(1, helmugaBerria);
-            pstmt.setInt(2, idIrteera);
-            pstmt.executeUpdate();
-            System.out.println("Irteeraren helmuga aldatu da!");
+             CallableStatement cstmt = conn.prepareCall(sql)) {
+            cstmt.setInt(1, idIrteera);
+            cstmt.setInt(2, kantitateBerria);
+            cstmt.setString(3, helmugaBerria);
+            cstmt.executeUpdate();
+            System.out.println("Irteera aldatu da!");
         } catch (SQLException e) {
             System.out.println("Errorea irteera aldatzean...");
         }
@@ -190,11 +158,11 @@ public class SarrerakEtaIrteerak {
      * @param idSarrera ezabatu nahi den sarreraren ID-a
      */
     public void sarreraEzabatu(int idSarrera) {
-        String sql = "DELETE FROM Sarrerak WHERE id_sarrera = ?";
+        String sql = "{CALL sarreraEzabatu(?)}";
         try (Connection conn = Konexioa.konektatu();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setInt(1, idSarrera);
-            pstmt.executeUpdate();
+             CallableStatement cstmt = conn.prepareCall(sql)) {
+            cstmt.setInt(1, idSarrera);
+            cstmt.executeUpdate();
             System.out.println("Sarrera ezabatu da!");
         } catch (SQLException e) {
             System.out.println("Errorea sarrera ezabatzean...");
@@ -206,11 +174,11 @@ public class SarrerakEtaIrteerak {
      * @param idIrteera ezabatu nahi den irteeraren ID-a
      */
     public void irteeraEzabatu(int idIrteera) {
-        String sql = "DELETE FROM Irteerak WHERE id_irteera = ?";
+        String sql = "{CALL irteeraEzabatu(?)}";
         try (Connection conn = Konexioa.konektatu();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setInt(1, idIrteera);
-            pstmt.executeUpdate();
+             CallableStatement cstmt = conn.prepareCall(sql)) {
+            cstmt.setInt(1, idIrteera);
+            cstmt.executeUpdate();
             System.out.println("Irteera ezabatu da!");
         } catch (SQLException e) {
             System.out.println("Errorea irteera ezabatzean...");

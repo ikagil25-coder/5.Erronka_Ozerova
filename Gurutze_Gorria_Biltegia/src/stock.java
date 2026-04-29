@@ -3,6 +3,9 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+// Birfaktorizazioa: Konexioen kudeaketa metodo bakoitzean errepikatzen zenez, 'try-with-resources' blokeak erabili ditut (Connection eta CallableStatement) kodea garbitzeko eta konexio-ihesak ekiditeko.
+// Modu honetan, try blokea bukatzean dena automatikoki ixten da, try-catch-finally bloke luzeak saihestuz.
+
 /**
  * Stock-a kudeatzeko klasea
  */

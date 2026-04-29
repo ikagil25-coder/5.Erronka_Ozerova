@@ -4,6 +4,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Scanner;
 
+// Birfaktorizazioa: Erabiltzailearen autentifikazioan ResultSet-a prozesatzeko kodea optimizatu da.
+// Orain 'try-with-resources' erabiliz dena bloke berean zentralizatu dut (Connection, CallableStatement eta ResultSet), kodearen irakurgarritasuna hobetuz eta baliabideak ondo askatuz.
+
 /**
  * Login sistema kudeatzeko klasea
  */

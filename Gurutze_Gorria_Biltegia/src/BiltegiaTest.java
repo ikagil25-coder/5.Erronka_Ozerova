@@ -2,11 +2,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.DisplayName;
 
-/**
- * Gurutze Gorria Biltegia aplikazioaren unitate-testak
- * Proba Kasuen Taulan (PK1 - PK19) oinarritutako testak.
- * Logika guztia test bakoitzaren barruan dago integratuta.
- */
+
 public class BiltegiaTest {
 
     @Test
